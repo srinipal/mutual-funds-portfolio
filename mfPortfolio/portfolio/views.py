@@ -54,5 +54,4 @@ def sip_create(request):
             form.save()
             return redirect('mfIndex')
     form = MutualFundSIPForm()
-
     return render(request, 'portfolio/create.html', {'form': form})
