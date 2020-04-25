@@ -1,9 +1,14 @@
 from django import  forms
-from urllib3 import fields
 
-from .models import MutualFund
+from .models import MutualFund, MutualFundSIP
 
 class MutualFundForm(forms.ModelForm):
     class Meta:
         model = MutualFund
-        fields = "__all__"
+        exclude = ["last_transaction_date"]
+
+class MutualFundSIPForm(forms.ModelForm):
+    class Meta:
+        model = MutualFundSIP
+        exclude = ["last_transaction_date"]
+

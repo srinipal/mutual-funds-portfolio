@@ -1,10 +1,11 @@
 {% extends 'portfolio/base.html' %}
+{% load humanize %}
 {% block content %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
             <div class="col-md-10 col-xs-10 col-sm-10">
-                <h3 class="round3" style="text-align:center;">Mutual Funds</h3>
+                <h3 class="round3" style="text-align:center;">Portfolio</h3>
             </div>
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
         </div>
@@ -12,7 +13,7 @@
             <div class="col-md-10 col-xs-10 col-sm-10"></div>
             <div class="col-md-2 col-xs-1 col-sm-1">
                 <br/>
-                <a href="{% url 'create' %}">
+                <a href="{% url 'mfCreate' %}">
                     <button type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>
                     </button>
@@ -20,45 +21,44 @@
             </div>
         </div>
         <br/>
-        {% for mutual_fund in mf_list %}
-            <div class="row">
-                <div class="col-md-1 col-xs-1 col-sm-1"></div>
-                <div class="col-md-7 col-xs-7 col-sm-7">
-                    <ul class="list-group">
+        <table class="table table-condensed">
+            <tr>
+                <th>Mutual Fund</th>
+                <th style="text-align:right">Amount</th>
+                <th>Last Transaction</th>
+                <th></th>
+            </tr>
+            {% for mutual_fund in mf_list %}
+                <tr>
+                    <td><a href="{{ mutual_fund.holdings_url }}">{{ mutual_fund.mf_name }}</a> <span
+                            class="badge"></span></td>
+                    <td style="text-align:right">{{ mutual_fund.amount|intcomma }}</td>
+                    <td>{{ mutual_fund.last_transaction_date }}</td>
+                    <td style="text-align:left">
+                        <a href="{% url 'mfDetail' mutual_fund.pk %}">
+                            <button type="button" class="btn btn-info">
+                                <span class="glyphicon glyphicon-open"></span>
+                            </button>
+                        </a>
+                        <a href="{% url 'sipCreate' %}">
+                            <button type="button" class="btn btn-info">
+                                <span class="glyphicon glyphicon-piggy-bank"></span>
+                            </button>
+                        </a>
+                        <a href="{% url 'mfEdit' mutual_fund.pk %}">
+                            <button type="button" class="btn btn-info">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </a>
+                        <a href="{% url 'mfDelete' mutual_fund.pk %}">
+                            <button type="button" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </a>
+                    </td>
 
-                        <li class="list-group-item ">
-                            <a href="{% url 'detail' mutual_fund.pk %}">{{ mutual_fund.mf_name }}</a> <span
-                                class="badge"></span>
-                        </li>
-                        <li class="list-group-item ">
-                            {{ mutual_fund.amount }}
-                        </li>
-                    </ul>
-                    <br>
-                </div>
-                <div class="col-md-1 col-xs-1 col-sm-1">
-                    <a href="{% url 'detail' mutual_fund.pk %}">
-                        <button type="button" class="btn btn-info">
-                            <span class="glyphicon glyphicon-open"></span>
-                        </button>
-                    </a>
-                </div>
-                <div class="col-md-1">
-                    <a href="{% url 'edit' mutual_fund.pk %}">
-                        <button type="button" class="btn btn-info">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                    </a>
-                </div>
-                <div class="col-md-1">
-                    <a href="{% url 'delete' mutual_fund.pk %}">
-                        <button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                    </a>
-                </div>
-                <div class="col-md-1 col-xs-1 col-sm-1"></div>
-            </div>
-        {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 {% endblock %}
