@@ -11,7 +11,58 @@
                 <h4>{{ mutualfund.mf_name }}</h4>
             </div>
         </div>
+    </div>
+
+    <div class="container-fluid">
         <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-5 col-xs-5 col-sm-5">
+                <a href="{{ mutualfund.holdings_url }}">View all holdings</a>
+            </div>
+            <div class="col-md-2 col-xs-2 col-sm-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-5 col-xs-5 col-sm-5">
+                <b>Total invested amount : </b>{{ mutualfund.amount|intcomma }}
+            </div>
+            <div class="col-md-2 col-xs-2 col-sm-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-5 col-xs-5 col-sm-5">
+                <b>Last invested date : </b>{{ mutualfund.last_transaction_date }}
+            </div>
+            <div class="col-md-2 col-xs-2 col-sm-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-xs-6 col-sm-6"></div>
+            <div class="col-md-2 col-xs-2 col-sm-2">
+                <a href="{% url 'mfEdit' mutualfund.pk %}">
+                    <button type="button" class="btn btn-info">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </a>
+                {% comment %}<a href="{% url 'mfDelete' mutualfund.pk %}">
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </a>{% endcomment %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+        <div class="col-md-7 col-xs-7 col-sm-7">
+            <h4 class="round3" style="text-align:center;">Systematic Investment Plans</h4>
+        </div>
+        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
             <div class="col-md-1 col-xs-1 col-sm-1">
                 <h5>Amount</h5>
             </div>
@@ -24,37 +75,36 @@
             <div class="col-md-2 col-xs-2 col-sm-2">
                 <h5>Last Executed Date</h5>
             </div>
+            <div class="col-md-2 col-xs-2 col-sm-2"></div>
         </div>
         {% for sip in mutualfund.sips.all %}
-            <div class="col-md-1 col-xs-1 col-sm-1">
-                {{ sip.amount|intcomma }}
-            </div>
-            <div class="col-md-1 col-xs-1 col-sm-1">
-                {{ sip.frequency }}
-            </div>
-            <div class="col-md-2 col-xs-2 col-sm-2">
-                {{ sip.start_date }}
-            </div>
-            <div class="col-md-2 col-xs-2 col-sm-2">
-                {{ sip.last_transaction_date }}
+            <div class="row">
+                <div class="col-md-1 col-xs-1 col-sm-1"></div>
+                <div class="col-md-1 col-xs-1 col-sm-1">
+                    {{ sip.amount|intcomma }}
+                </div>
+                <div class="col-md-1 col-xs-1 col-sm-1">
+                    {{ sip.frequency }}
+                </div>
+                <div class="col-md-2 col-xs-2 col-sm-2">
+                    {{ sip.start_date }}
+                </div>
+                <div class="col-md-2 col-xs-2 col-sm-2">
+                    {{ sip.last_transaction_date }}
+                </div>
+                <div class="col-md-2 col-xs-2 col-sm-2">
+                    <a href="{% url 'sipDetail' sip.pk %}">
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-open"></span>
+                        </button>
+                    </a>
+                    <a href="{% url 'sipEdit' sip.pk %}">
+                        <button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </a>
+                </div>
             </div>
         {% endfor %}
-        <br/>
-        <br/>
-        <div class="row">
-            <div class="col-md-2 col-xs-2 col-sm-2">
-                <a href="{% url 'mfEdit' mutualfund.pk %}">
-                    <button type="button" class="btn btn-info">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                </a>
-                <a href="{% url 'mfDelete' mutualfund.pk %}">
-                    <button type="button" class="btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
-                </a>
-            </div>
-        </div>
-
     </div>
 {% endblock %}
