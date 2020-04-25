@@ -24,7 +24,7 @@ def mf_edit(request, pk, template_name='portfolio/edit.html'):
     form = MutualFundForm(request.POST or None, instance=mutual_fund)
     if form.is_valid():
         form.save()
-        return redirect('index')
+        return redirect('mfIndex')
     return render(request, template_name, {'form': form})
 
 
@@ -32,7 +32,7 @@ def mf_delete(request, pk, template_name='portfolio/delete.html'):
     mutual_fund = get_object_or_404(MutualFund, pk=pk)
     if request.method == 'POST':
         mutual_fund.delete()
-        return redirect('index')
+        return redirect('mfIndex')
     return render(request, template_name, {'object': mutual_fund})
 
 
@@ -41,7 +41,7 @@ def mf_create(request):
         form = MutualFundForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('mfIndex')
     form = MutualFundForm()
 
     return render(request, 'portfolio/create.html', {'form': form})
@@ -52,7 +52,7 @@ def sip_create(request):
         form = MutualFundSIPForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('mfIndex')
     form = MutualFundSIPForm()
 
     return render(request, 'portfolio/create.html', {'form': form})
