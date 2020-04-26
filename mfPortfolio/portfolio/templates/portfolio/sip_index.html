@@ -3,13 +3,13 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-2 col-xs-2 col-sm-2"></div>
             <div class="col-md-5 col-xs-5 col-sm-5">
                 <h4 class="round3" style="text-align:center;">Systematic Investment Plans</h4>
             </div>
-            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-2 col-xs-2 col-sm-2"></div>
         </div>
-        <div class="row">
+        <div class="row sticky-top">
 
             <div class="col-md-3 col-xs-3 col-sm-3"><h5>Mutual Fund</h5></div>
             <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"><h5>Amount</h5></div>
@@ -44,17 +44,12 @@
             </div>
             <br/>
         {% endfor %}
-        <div class="row">
-            <div class="col-md-2 col-xs-2 col-sm-2">
-                <br/>
-                <a href="{% url 'sipCreate' %}">
-                    <button type="button" class="btn btn-success">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </a>
-            </div>
-            <div class="col-md-10 col-xs-10 col-sm-10"></div>
+        <div class="sticky-bottom" data-toggle="tooltip" data-placement="top" title="Add an SIP">
+            <a href="{% url 'sipCreate' %}">
+                <button type="button" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </a>
         </div>
-    <br />
     </div>
 {% endblock %}
