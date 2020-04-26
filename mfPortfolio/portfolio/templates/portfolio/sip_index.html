@@ -3,29 +3,31 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 col-xs-2 col-sm-2"></div>
-            <div class="col-md-5 col-xs-5 col-sm-5">
-                <h4 class="round3" style="text-align:center;">Systematic Investment Plans</h4>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+                <h5 class="round3" style="text-align:center;">Systematic Investment Plans</h5>
             </div>
-            <div class="col-md-2 col-xs-2 col-sm-2"></div>
         </div>
         <div class="row">
 
-            <div class="col-md-3 col-xs-3 col-sm-3"><h5>Mutual Fund</h5></div>
-            <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"><h5>Amount</h5></div>
-            <div class="col-md-2 col-xs-2 col-sm-2"><h5>Last Transaction</h5></div>
-            <div class="col-md-2 col-xs-2 col-sm-2"></div>
+            <div class="col-md-4 col-xs-4 col-sm-4"><h6>Mutual Fund</h6></div>
+            <div class="col-md-1 col-xs-1 col-sm-1" style="text-align:right"><h6>Amount</h6></div>
+            <div class="col-md-2 col-xs-2 col-sm-2"><h6>Start Date</h6></div>
+            <div class="col-md-2 col-xs-2 col-sm-2"><h6>End Date</h6></div>
+            <div class="col-md-2 col-xs-2 col-sm-2"><h6>Last Transaction</h6></div>
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
         </div>
 
         {% for sip in sip_list %}
             <div class="row">
-                <div class="col-md-3 col-xs-3 col-sm-3"><a
+                <div class="col-md-4 col-xs-4 col-sm-4"><a
                         href="{% url 'mfDetail' sip.mutual_fund.pk %}">{{ sip.mutual_fund.mf_name }}</a> <span
                         class="badge"></span></div>
-                <div class="col-md-2 col-xs-2 col-sm-2"
+                <div class="col-md-1 col-xs-1 col-sm-1"
                      style="text-align:right">{{ sip.amount|intcomma }}</div>
+                <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.start_date }}</div>
+                <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.end_date }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.last_transaction_date }}</div>
-                <div class="col-md-2 col-xs-2 col-sm-2">
+                <div class="col-md-1 col-xs-1 col-sm-1">
 
                     <a href="{% url 'sipDetail' sip.pk %}">
                         <i class="fa fa-paper-plane" aria-hidden="true"></i>

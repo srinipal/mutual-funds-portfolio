@@ -8,7 +8,7 @@
             <div class="col-md-1 col-xs-1 col-sm-1">
             </div>
             <div class="col-md-4 col-xs-4 col-sm-4">
-                <h4>{{ mutualfundsip.mutual_fund.mf_name}}</h4>
+                <h5>{{ mutualfundsip.mutual_fund.mf_name}}</h5>
             </div>
         </div>
     </div>
@@ -40,7 +40,15 @@
                 <b>Last executed date : </b>{{ mutualfundsip.last_transaction_date }}
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-4 col-xs-4 col-sm-4">
+                <b>SIP end date : </b>{{ mutualfundsip.end_date }}
+            </div>
+            <div class="col-md-4 col-xs-4 col-sm-4">
+                <b>Active : </b>{{ mutualfundsip.active }}
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-7 col-xs-7 col-sm-7"></div>
             <div class="col-md-2 col-xs-2 col-sm-2">

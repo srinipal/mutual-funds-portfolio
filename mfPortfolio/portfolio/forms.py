@@ -15,7 +15,8 @@ class MutualFundSIPForm(forms.ModelForm):
         model = MutualFundSIP
         exclude = ["last_transaction_date"]
         widgets = {
-            'start_date': DateInput()
+            'start_date': DateInput(),
+            'end_date': DateInput()
         }
 
     def __init__(self, *args, **kwargs):

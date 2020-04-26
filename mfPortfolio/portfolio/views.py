@@ -64,11 +64,12 @@ def sip_create(request):
     form = MutualFundSIPForm()
     return render(request, 'portfolio/create.html', {'form': form})
 
+
 def sip_edit(request, pk, template_name='portfolio/edit.html'):
     mutual_fund_sip = get_object_or_404(MutualFundSIP, pk=pk)
-    form = MutualFundSIPForm(request.POST or None, instance=mutual_fund_sip)
+    form = MutualFundSIPForm(request.POST or None, instance=mutual_fund_sip, initial={
+        'fields_to_disable': ['amount', 'mutual_fund', 'start_date', 'frequency', 'end_date']})
     if form.is_valid():
         form.save()
         return redirect('sipDetail', pk)
     return render(request, template_name, {'form': form})
-
