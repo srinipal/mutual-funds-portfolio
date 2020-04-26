@@ -1,15 +1,8 @@
 from django.db import models
-from enum import Enum
 from datetime import datetime
 
-class SIPFrequency(Enum):
-    MONTHLY = "Monthly"
-    QUARTERLY = "Quarterly"
-    WEEKLY = "Weekly"
+from .utils.common_enums import SIPFrequency
 
-    @classmethod
-    def choices(cls):
-        return [(key.value, key.name) for key in cls]
 
 class MutualFund(models.Model):
     id = models.AutoField(primary_key=True)
@@ -35,7 +28,6 @@ class MutualFundSIP(models.Model):
         choices=SIPFrequency.choices(),  # Choices is a list of Tuple
         default=SIPFrequency.MONTHLY
     )
-    end_date = models.DateField(auto_now=False, null=False, default=datetime(2099, 12, 1))
     last_transaction_date = models.DateField(auto_now=False, null=True)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

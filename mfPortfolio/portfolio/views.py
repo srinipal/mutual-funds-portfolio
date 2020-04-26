@@ -49,7 +49,7 @@ def mf_create(request):
         form = MutualFundForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('mfIndex')
+            return redirect('mfDetail', form.instance.pk)
     form = MutualFundForm()
 
     return render(request, 'portfolio/create.html', {'form': form})
@@ -60,7 +60,7 @@ def sip_create(request):
         form = MutualFundSIPForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('mfIndex')
+            return redirect('sipDetail', form.instance.pk)
     form = MutualFundSIPForm()
     return render(request, 'portfolio/create.html', {'form': form})
 
@@ -68,7 +68,7 @@ def sip_create(request):
 def sip_edit(request, pk, template_name='portfolio/edit.html'):
     mutual_fund_sip = get_object_or_404(MutualFundSIP, pk=pk)
     form = MutualFundSIPForm(request.POST or None, instance=mutual_fund_sip, initial={
-        'fields_to_disable': ['amount', 'mutual_fund', 'start_date', 'frequency', 'end_date']})
+        'fields_to_disable': ['amount', 'mutual_fund', 'start_date', 'frequency']})
     if form.is_valid():
         form.save()
         return redirect('sipDetail', pk)

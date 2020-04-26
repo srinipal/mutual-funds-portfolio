@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-7 col-xs-7 col-sm-7">
+            <div class="col-md-8 col-xs-8 col-sm-8">
                 <h5 class="round3" style="text-align:center;">Mutual Funds</h5>
             </div>
         </div>
@@ -11,7 +11,7 @@
 
             <div class="col-md-4 col-xs-4 col-sm-4"><h6>Mutual Fund</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1" style="text-align:right"><h6>Amount</h6></div>
-            <div class="col-md-1 col-xs-1 col-sm-1"><h6>Last Transaction</h6></div>
+            <div class="col-md-2 col-xs-2 col-sm-2"><h6>Last Transaction</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
         </div>
 
@@ -22,7 +22,7 @@
                         class="badge"></span></div>
                 <div class="col-md-1 col-xs-1 col-sm-1"
                      style="text-align:right">{{ mutual_fund.amount|intcomma }}</div>
-                <div class="col-md-1 col-xs-1 col-sm-1">{{ mutual_fund.last_transaction_date }}</div>
+                <div class="col-md-2 col-xs-2 col-sm-2">{{ mutual_fund.last_transaction_date }}</div>
                 <div class="col-md-1 col-xs-1 col-sm-1">
 
                     <a href="{% url 'mfDetail' mutual_fund.pk %}">

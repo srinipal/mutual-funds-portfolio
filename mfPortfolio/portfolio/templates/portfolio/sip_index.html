@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12 col-xs-12 col-sm-12">
+            <div class="col-md-10 col-xs-10 col-sm-10">
                 <h5 class="round3" style="text-align:center;">Systematic Investment Plans</h5>
             </div>
         </div>
@@ -12,7 +12,6 @@
             <div class="col-md-4 col-xs-4 col-sm-4"><h6>Mutual Fund</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1" style="text-align:right"><h6>Amount</h6></div>
             <div class="col-md-2 col-xs-2 col-sm-2"><h6>Start Date</h6></div>
-            <div class="col-md-2 col-xs-2 col-sm-2"><h6>End Date</h6></div>
             <div class="col-md-2 col-xs-2 col-sm-2"><h6>Last Transaction</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
         </div>
@@ -25,7 +24,6 @@
                 <div class="col-md-1 col-xs-1 col-sm-1"
                      style="text-align:right">{{ sip.amount|intcomma }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.start_date }}</div>
-                <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.end_date }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.last_transaction_date }}</div>
                 <div class="col-md-1 col-xs-1 col-sm-1">
 
