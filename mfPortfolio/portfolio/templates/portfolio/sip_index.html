@@ -3,14 +3,14 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10 col-xs-10 col-sm-10">
+            <div class="col-md-11 col-xs-11 col-sm-11">
                 <h5 class="round3" style="text-align:center;">Systematic Investment Plans</h5>
             </div>
         </div>
         <div class="row">
 
             <div class="col-md-4 col-xs-4 col-sm-4"><h6>Mutual Fund</h6></div>
-            <div class="col-md-1 col-xs-1 col-sm-1" style="text-align:right"><h6>Amount</h6></div>
+            <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"><h6>Amount</h6></div>
             <div class="col-md-2 col-xs-2 col-sm-2"><h6>Start Date</h6></div>
             <div class="col-md-2 col-xs-2 col-sm-2"><h6>Last Transaction</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
@@ -21,7 +21,7 @@
                 <div class="col-md-4 col-xs-4 col-sm-4"><a
                         href="{% url 'mfDetail' sip.mutual_fund.pk %}">{{ sip.mutual_fund.mf_name }}</a> <span
                         class="badge"></span></div>
-                <div class="col-md-1 col-xs-1 col-sm-1"
+                <div class="col-md-2 col-xs-2 col-sm-2"
                      style="text-align:right">{{ sip.amount|intcomma }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.start_date }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.last_transaction_date }}</div>
@@ -40,6 +40,10 @@
             </div>
             <br/>
         {% endfor %}
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-sm-4" style="text-align:right"></div>
+            <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"><b>Total: </b>{{ total_sum|intcomma }}</div>
+        </div>
         <div class="sticky-bottom" data-toggle="tooltip" data-placement="top" title="Add an SIP">
             <a href="{% url 'sipCreate' %}">
                 <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>

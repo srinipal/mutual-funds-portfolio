@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import MutualFund, MutualFundSIP
 from .forms import MutualFundForm, MutualFundSIPForm
 from django.views.generic import ListView, DetailView
-
+from django.db.models import Sum
 
 class IndexView(ListView):
     template_name = 'portfolio/index.html'
@@ -12,12 +12,22 @@ class IndexView(ListView):
     def get_queryset(self):
         return MutualFund.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_sum'] = context[self.context_object_name].aggregate(Sum('amount'))['amount__sum']
+        return context
+
 class SIPIndexView(ListView):
     template_name = 'portfolio/sip_index.html'
     context_object_name = 'sip_list'
 
     def get_queryset(self):
-        return MutualFundSIP.objects.all()
+        return MutualFundSIP.objects.all().filter(active=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_sum'] = context[self.context_object_name].aggregate(Sum('amount'))['amount__sum']
+        return context
 
 class MutualFundDetailView(DetailView):
     model = MutualFund
