@@ -8,7 +8,7 @@ class DateInput(forms.DateInput):
 class MutualFundForm(forms.ModelForm):
     class Meta:
         model = MutualFund
-        exclude = ["last_transaction_date"]
+        exclude = ["last_transaction_date", "active"]
 
 class MutualFundSIPForm(forms.ModelForm):
     class Meta:
@@ -17,3 +17,12 @@ class MutualFundSIPForm(forms.ModelForm):
         widgets = {
             'start_date': DateInput()
         }
+
+    def __init__(self, *args, **kwargs):
+        super(MutualFundSIPForm, self).__init__(*args, **kwargs)
+        if ('initial' in kwargs):
+            initial_dict = kwargs.get('initial')
+            if ('fields_to_disable' in initial_dict):
+                fields_to_disable = initial_dict['fields_to_disable']
+                for field_to_disable in fields_to_disable:
+                    self.fields[field_to_disable].disabled = True
