@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-2 col-xs-2 col-sm-2"></div>
         </div>
-        <div class="row sticky-top">
+        <div class="row">
 
             <div class="col-md-3 col-xs-3 col-sm-3"><h5>Mutual Fund</h5></div>
             <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"><h5>Amount</h5></div>
@@ -28,21 +28,15 @@
                 <div class="col-md-2 col-xs-2 col-sm-2">
 
                     <a href="{% url 'mfDetail' mutual_fund.pk %}">
-                        <button type="button" class="btn btn-info">
-                            <span class="glyphicon glyphicon-open"></span>
-                        </button>
+                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
                     </a>
 
                     <a href="{% url 'sipCreate' %}">
-                        <button type="button" class="btn btn-info">
-                            <span class="glyphicon glyphicon-piggy-bank"></span>
-                        </button>
+                        <i class="fa fa-money" aria-hidden="true"></i>
                     </a>
 
                     <a href="{% url 'mfEdit' mutual_fund.pk %}">
-                        <button type="button" class="btn btn-info">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </a>
 
                     {% comment %}<a href="{% url 'mfDelete' mutual_fund.pk %}">
@@ -58,9 +52,7 @@
         <br/>
         <div class="fixed-bottom p-2" data-toggle="tooltip" data-placement="top" title="Add to portfolio">
             <a href="{% url 'mfCreate' %}">
-                <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
+                <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
             </a>
         </div>
     </div>
