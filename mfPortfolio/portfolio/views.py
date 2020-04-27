@@ -1,9 +1,63 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import MutualFund, MutualFundSIP
 from .forms import MutualFundForm, MutualFundSIPForm
 from django.views.generic import ListView, DetailView
 from django.db.models import Sum
+
+def portfolio(request, template_name = 'portfolio/portfolio.html'):
+    return render(request, template_name)
+
+def mf_chart_data(request):
+    mutual_funds = MutualFund.objects.all().order_by('-amount')
+
+    chart = {
+        'chart': {'type': 'pie'},
+        'title': {'text': 'Mutual Fund Distribution'},
+        'plotOptions': {
+            'series': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            }
+        },
+        'series': [{
+            'name': 'Mutual Fund Distribution',
+            'data': list(map(lambda mutual_fund: {'name': mutual_fund.mf_name, 'y': int(mutual_fund.amount)}, mutual_funds))
+        }]
+    }
+    return JsonResponse(chart)
+
+def sip_chart_data(request):
+    sips = MutualFundSIP.objects.all().filter(active=True)\
+        .values('mutual_fund__mf_name')\
+        .annotate(total_sip=Sum('amount'))\
+        .order_by('-total_sip')
+
+    chart = {
+        'chart': {'type': 'column'},
+        'title': {'text': 'Active SIPs'},
+        'xAxis': {
+            'type': 'category'
+        },
+        'yAxis': {
+            'title': {
+                'text': 'Amount'
+            }
+        },
+        'plotOptions': {
+            'series': {
+                'dataLabels': {
+                    'enabled': True
+                }
+            }
+        },
+        'series': [{
+            'name': 'Active SIPs',
+            'data': list(map(lambda sip: {'name': sip['mutual_fund__mf_name'], 'y': int(sip['total_sip'])}, sips))
+        }]
+    }
+    return JsonResponse(chart)
 
 class IndexView(ListView):
     template_name = 'portfolio/index.html'

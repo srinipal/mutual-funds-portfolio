@@ -1,0 +1,25 @@
+{% extends 'portfolio/base.html' %}
+{% load humanize %}
+{% block content %}
+
+    <div id="sip-container" data-url="{% url 'portfolioSIPChart' %}"></div>
+    <div id="mf-container" data-url="{% url 'portfolioMFChart' %}"></div>
+    <script>
+        $.ajax({
+            url: $("#mf-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("mf-container", data);
+            }
+        });
+        $.ajax({
+            url: $("#sip-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("sip-container", data);
+            }
+        });
+
+    </script>
+
+{% endblock %}

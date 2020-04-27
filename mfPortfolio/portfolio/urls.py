@@ -3,6 +3,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.portfolio, name='portfolio'),
+    path('mf-chart/', views.mf_chart_data, name='portfolioMFChart'),
+    path('sip-chart/', views.sip_chart_data, name='portfolioSIPChart'),
     path('mutual-funds/', views.IndexView.as_view(), name='mfIndex'),
     path('mutual-funds-create/', views.mf_create, name='mfCreate'),
     path('mutual-funds-view/<int:pk>/', views.MutualFundDetailView.as_view(), name='mfDetail'),
