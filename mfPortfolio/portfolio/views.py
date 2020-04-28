@@ -49,6 +49,9 @@ def sip_chart_data(request):
                 'text': 'Amount'
             }
         },
+        'tooltip': {
+            'pointFormat': '<b>{point.y}</b>'
+        },
         'plotOptions': {
             'series': {
                 'dataLabels': {
