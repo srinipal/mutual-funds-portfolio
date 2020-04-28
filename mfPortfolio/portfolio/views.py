@@ -14,11 +14,15 @@ def mf_chart_data(request):
     chart = {
         'chart': {'type': 'pie'},
         'title': {'text': 'Mutual Fund Distribution'},
+        'tooltip': {
+            'pointFormat': '<b>{point.y}({point.percentage:.1f}%)</b>'
+        },
         'plotOptions': {
             'series': {
                 'dataLabels': {
                     'enabled': True
-                }
+                },
+                'showInLegend': False
             }
         },
         'series': [{
@@ -64,7 +68,7 @@ class IndexView(ListView):
     context_object_name = 'mf_list'
 
     def get_queryset(self):
-        return MutualFund.objects.all()
+        return MutualFund.objects.all().order_by('-last_transaction_date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -76,7 +80,7 @@ class SIPIndexView(ListView):
     context_object_name = 'sip_list'
 
     def get_queryset(self):
-        return MutualFundSIP.objects.all().filter(active=True)
+        return MutualFundSIP.objects.all().filter(active=True).order_by('-last_transaction_date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
