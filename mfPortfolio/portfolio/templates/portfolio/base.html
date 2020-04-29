@@ -18,7 +18,7 @@
         <a class="nav-link" href="{% url 'portfolio' %}">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'mfIndex' %}">Mutual Funds</a>
+        <a class="nav-link" href="{% url 'portfolioIndex' %}">Investments</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'sipIndex' %}">SIPs</a>
@@ -29,9 +29,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'sipCreate' %}">Add SIP</a>
-          <a class="dropdown-item" href="{% url 'mfCreate' %}">Add Mutual Fund</a>
+          <a class="dropdown-item" href="{% url 'portfolioMFCreate' %}">Add Investment</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="#">Mutual Funds</a>
         </div>
       </li>
     </ul>

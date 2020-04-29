@@ -8,7 +8,7 @@
             <div class="col-md-1 col-xs-1 col-sm-1">
             </div>
             <div class="col-md-4 col-xs-4 col-sm-4">
-                <h5>{{ mutualfund.mf_name }}</h5>
+                <h5>{{ mutualfund.mutual_fund_global.mf_name }}</h5>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
             <div class="col-md-5 col-xs-5 col-sm-5">
-                <a href="{{ mutualfund.holdings_url }}">View all holdings </a><i class="fa fa-external-link"
+                <a href="{{ mutualfund.mutual_fund_global.holdings_url }}">View all holdings </a><i class="fa fa-external-link"
                                                                                  aria-hidden="true"></i>
             </div>
             <div class="col-md-2 col-xs-2 col-sm-2"></div>
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-md-6 col-xs-6 col-sm-6"></div>
             <div class="col-md-2 col-xs-2 col-sm-2">
-                <a href="{% url 'mfEdit' mutualfund.pk %}">
+                <a href="{% url 'portfolioMFEdit' mutualfund.pk %}">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
                 {% comment %}<a href="{% url 'mfDelete' mutualfund.pk %}">
@@ -69,7 +69,7 @@
         {% for sip in mutualfund.sips.all %}
             <div class="row">
                 <div class="col-md-4 col-xs-4 col-sm-4"><a
-                        href="{% url 'mfDetail' sip.mutual_fund.pk %}">{{ sip.mutual_fund.mf_name }}</a> <span
+                        href="{% url 'portfolioMFDetail' sip.mutual_fund.pk %}">{{ sip.mutual_fund.mutual_fund_global.mf_name }}</a> <span
                         class="badge"></span></div>
                 <div class="col-md-2 col-xs-2 col-sm-2"
                      style="text-align:right">{{ sip.amount|intcomma }}</div>

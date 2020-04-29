@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 
 INSTALLED_APPS = [
     'portfolio.apps.PortfolioConfig',
+    'mutualFund.apps.MutualFundConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,7 +85,8 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'turvo',
         'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'PORT': '3306',
+        'ATOMIC_REQUESTS': True
     }
 }
 

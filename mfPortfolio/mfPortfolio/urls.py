@@ -19,6 +19,7 @@ from django.urls import path
 
 urlpatterns = [
     path('portfolio/', include('portfolio.urls')),
+    path('mf/', include('mutualFund.urls')),
     path(r'^admin/', admin.site.urls),
 ]
 

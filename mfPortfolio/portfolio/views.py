@@ -5,8 +5,10 @@ from .forms import MutualFundForm, MutualFundSIPForm
 from django.views.generic import ListView, DetailView
 from django.db.models import Sum
 
+
 def portfolio(request, template_name = 'portfolio/portfolio.html'):
     return render(request, template_name)
+
 
 def mf_chart_data(request):
     mutual_funds = MutualFund.objects.all().order_by('-amount')
@@ -27,14 +29,15 @@ def mf_chart_data(request):
         },
         'series': [{
             'name': 'Mutual Fund Distribution',
-            'data': list(map(lambda mutual_fund: {'name': mutual_fund.mf_name, 'y': int(mutual_fund.amount)}, mutual_funds))
+            'data': list(map(lambda mutual_fund: {'name': mutual_fund.mutual_fund_global.mf_name, 'y': int(mutual_fund.amount)}, mutual_funds))
         }]
     }
     return JsonResponse(chart)
 
+
 def sip_chart_data(request):
     sips = MutualFundSIP.objects.all().filter(active=True)\
-        .values('mutual_fund__mf_name')\
+        .values('mutual_fund__mutual_fund_global__mf_name')\
         .annotate(total_sip=Sum('amount'))\
         .order_by('-total_sip')
 
@@ -61,10 +64,11 @@ def sip_chart_data(request):
         },
         'series': [{
             'name': 'Active SIPs',
-            'data': list(map(lambda sip: {'name': sip['mutual_fund__mf_name'], 'y': int(sip['total_sip'])}, sips))
+            'data': list(map(lambda sip: {'name': sip['mutual_fund__mutual_fund_global__mf_name'], 'y': int(sip['total_sip'])}, sips))
         }]
     }
     return JsonResponse(chart)
+
 
 class IndexView(ListView):
     template_name = 'portfolio/index.html'
@@ -78,6 +82,7 @@ class IndexView(ListView):
         context['total_sum'] = context[self.context_object_name].aggregate(Sum('amount'))['amount__sum']
         return context
 
+
 class SIPIndexView(ListView):
     template_name = 'portfolio/sip_index.html'
     context_object_name = 'sip_list'
@@ -90,29 +95,15 @@ class SIPIndexView(ListView):
         context['total_sum'] = context[self.context_object_name].aggregate(Sum('amount'))['amount__sum']
         return context
 
+
 class MutualFundDetailView(DetailView):
     model = MutualFund
     template_name = 'portfolio/detail.html'
 
+
 class MutualFundSIPDetailView(DetailView):
     model = MutualFundSIP
     template_name = 'portfolio/sip_detail.html'
-
-def mf_edit(request, pk, template_name='portfolio/edit.html'):
-    mutual_fund = get_object_or_404(MutualFund, pk=pk)
-    form = MutualFundForm(request.POST or None, instance=mutual_fund)
-    if form.is_valid():
-        form.save()
-        return redirect('mfDetail', pk)
-    return render(request, template_name, {'form': form})
-
-
-def mf_delete(request, pk, template_name='portfolio/delete.html'):
-    mutual_fund = get_object_or_404(MutualFund, pk=pk)
-    if request.method == 'POST':
-        mutual_fund.delete()
-        return redirect('mfIndex')
-    return render(request, template_name, {'object': mutual_fund})
 
 
 def mf_create(request):
@@ -120,10 +111,28 @@ def mf_create(request):
         form = MutualFundForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('mfDetail', form.instance.pk)
+            return redirect('portfolioMFDetail', form.instance.pk)
     form = MutualFundForm()
 
     return render(request, 'portfolio/create.html', {'form': form})
+
+
+def mf_edit(request, pk, template_name='portfolio/edit.html'):
+    mutual_fund = get_object_or_404(MutualFund, pk=pk)
+    form = MutualFundForm(request.POST or None, instance=mutual_fund, initial={
+        'fields_to_disable': ['mutual_fund_global']})
+    if form.is_valid():
+        form.save()
+        return redirect('portfolioMFDetail', pk)
+    return render(request, template_name, {'form': form})
+
+
+def mf_delete(request, pk, template_name='portfolio/delete.html'):
+    mutual_fund = get_object_or_404(MutualFund, pk=pk)
+    if request.method == 'POST':
+        mutual_fund.delete()
+        return redirect('portfolioIndex')
+    return render(request, template_name, {'object': mutual_fund})
 
 
 def sip_create(request):

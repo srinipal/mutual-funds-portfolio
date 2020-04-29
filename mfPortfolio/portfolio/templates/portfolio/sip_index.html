@@ -19,7 +19,7 @@
         {% for sip in sip_list %}
             <div class="row">
                 <div class="col-md-4 col-xs-4 col-sm-4"><a
-                        href="{% url 'mfDetail' sip.mutual_fund.pk %}">{{ sip.mutual_fund.mf_name }}</a> <span
+                        href="{% url 'portfolioMFDetail' sip.mutual_fund.pk %}">{{ sip.mutual_fund.mutual_fund_global }}</a> <span
                         class="badge"></span></div>
                 <div class="col-md-2 col-xs-2 col-sm-2"
                      style="text-align:right">{{ sip.amount|intcomma }}</div>

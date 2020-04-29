@@ -5,6 +5,8 @@ from django.db import connection
 from .models import MutualFund, MutualFundSIP
 from .utils import process_utils
 
+
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -13,6 +15,15 @@ class MutualFundForm(forms.ModelForm):
     class Meta:
         model = MutualFund
         exclude = ["last_transaction_date", "active"]
+
+    def __init__(self, *args, **kwargs):
+        super(MutualFundForm, self).__init__(*args, **kwargs)
+        if 'initial' in kwargs:
+            initial_dict = kwargs.get('initial')
+            if 'fields_to_disable' in initial_dict:
+                fields_to_disable = initial_dict['fields_to_disable']
+                for field_to_disable in fields_to_disable:
+                    self.fields[field_to_disable].disabled = True
 
 
 class MutualFundSIPForm(forms.ModelForm):
@@ -25,9 +36,9 @@ class MutualFundSIPForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MutualFundSIPForm, self).__init__(*args, **kwargs)
-        if ('initial' in kwargs):
+        if 'initial' in kwargs:
             initial_dict = kwargs.get('initial')
-            if ('fields_to_disable' in initial_dict):
+            if 'fields_to_disable' in initial_dict:
                 fields_to_disable = initial_dict['fields_to_disable']
                 for field_to_disable in fields_to_disable:
                     self.fields[field_to_disable].disabled = True
@@ -62,6 +73,6 @@ class MutualFundSIPForm(forms.ModelForm):
         sip_instance = self.instance
         cleanup_old_event = sip_instance.pk
         super(MutualFundSIPForm, self).save(*args, **kwargs)
-        if (self.has_changed()):
+        if self.has_changed():
             MutualFundSIPForm.event_scheduling_with_db(sip_instance, cleanup_old_event, sip_instance.active)
 
