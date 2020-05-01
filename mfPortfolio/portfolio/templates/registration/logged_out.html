@@ -1,5 +1,16 @@
 {% extends 'portfolio/guest_base.html' %}
 {% block title %} User logout {% endblock %}
 {% block content %}
-    <p>You have been logged out. Click <a href="{% url 'login' %}">here</a> to login again.</p>
+    <div class="container-fluid h-100 bg-light text-dark">
+        <div class="row justify-content-center align-items-center">
+            <h1>Big Bucks</h1>
+        </div>
+        <hr/>
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center">
+                You have been successfully logged out
+                Click <a href="{% url 'login' %}">here</a> to login again
+            </div>
+        </div>
+    </div>
 {% endblock %}

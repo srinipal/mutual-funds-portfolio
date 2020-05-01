@@ -1,26 +1,41 @@
 {% extends 'portfolio/guest_base.html' %}
 {% block title %} User login - or sign up {% endblock %}
 {% block content %}
-    <div class="container h-100">
+    <div class="container h-100 bg-light text-dark">
+        <div class="row justify-content-center align-items-center">
+            <h3>Big Bucks</h3>
+        </div>
+        <hr/>
         <div class="row h-100 justify-content-center align-items-center">
 
             <div class="col-10 col-md-8 col-lg-6">
                 <form method="post">
-                    <h3>Create a new account</h3>
+                    <h5>Register</h5>
+
                     {% csrf_token %}
                     {% for field in form %}
-                        <p>
-                            {{ field.label_tag }}<br>
-                            {{ field }}
-                            {% if field.help_text %}
-                                <small style="color: grey">{{ field.help_text }}</small>
-                            {% endif %}
-                            {% for error in field.errors %}
-                                <p style="color: red">{{ error }}</p>
-                            {% endfor %}
-                        </p>
+                        <div class="form-group">
+                            <p>
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <small style="color: grey">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </p>
+                        </div>
                     {% endfor %}
-                    <button type="submit">Sign up</button>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn-primary btn">Register</button>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col">
+                        Already a member? <a href="{% url 'login' %}">Log in</a>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
