@@ -6,7 +6,6 @@ from .models import MutualFund, MutualFundSIP
 from .utils import process_utils
 
 
-
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -14,7 +13,7 @@ class DateInput(forms.DateInput):
 class MutualFundForm(forms.ModelForm):
     class Meta:
         model = MutualFund
-        exclude = ["last_transaction_date", "active"]
+        exclude = ["last_transaction_date", "active", "created_by"]
 
     def __init__(self, *args, **kwargs):
         super(MutualFundForm, self).__init__(*args, **kwargs)
@@ -25,11 +24,18 @@ class MutualFundForm(forms.ModelForm):
                 for field_to_disable in fields_to_disable:
                     self.fields[field_to_disable].disabled = True
 
+    def save(self, *args, **kwargs):
+        # Set the user
+        user = kwargs.pop('user', None)
+        if not self.instance.pk:
+            self.instance.created_by = user
+        super(MutualFundForm, self).save(*args, **kwargs)
+
 
 class MutualFundSIPForm(forms.ModelForm):
     class Meta:
         model = MutualFundSIP
-        exclude = ["last_transaction_date"]
+        exclude = ["last_transaction_date", "created_by"]
         widgets = {
             'start_date': DateInput()
         }
@@ -59,7 +65,7 @@ class MutualFundSIPForm(forms.ModelForm):
             cursor.close()
 
     @staticmethod
-    def event_scheduling_with_db(sip_instance, cleanup_old_event=False, create_event=False):
+    def event_scheduling_with_db(sip_instance, cleanup_old_event=None, create_event=False):
         sip_id = sip_instance.pk
         start_date = sip_instance.start_date
         frequency = sip_instance.frequency
@@ -72,7 +78,13 @@ class MutualFundSIPForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         sip_instance = self.instance
         cleanup_old_event = sip_instance.pk
+
+        # Set the user
+        user = kwargs.pop('user', None)
+        if not cleanup_old_event:
+            self.instance.created_by = user
         super(MutualFundSIPForm, self).save(*args, **kwargs)
+
         if self.has_changed():
             MutualFundSIPForm.event_scheduling_with_db(sip_instance, cleanup_old_event, sip_instance.active)
 

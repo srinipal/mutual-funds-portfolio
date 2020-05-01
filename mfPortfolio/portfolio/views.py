@@ -16,7 +16,7 @@ def portfolio(request, template_name='portfolio/portfolio.html'):
 
 @login_required
 def mf_chart_data(request):
-    mutual_funds = MutualFund.objects.all().order_by('-amount')
+    mutual_funds = MutualFund.objects.all().filter(created_by=request.user).order_by('-amount')
 
     chart = {
         'chart': {'type': 'pie'},
@@ -42,7 +42,7 @@ def mf_chart_data(request):
 
 @login_required
 def sip_chart_data(request):
-    sips = MutualFundSIP.objects.all().filter(active=True)\
+    sips = MutualFundSIP.objects.all().filter(active=True, created_by=request.user)\
         .values('mutual_fund__mutual_fund_global__mf_name')\
         .annotate(total_sip=Sum('amount'))\
         .order_by('-total_sip')
@@ -82,7 +82,7 @@ class MFIndexView(LoginRequiredMixin, ListView):
     context_object_name = 'mf_list'
 
     def get_queryset(self):
-        return MutualFund.objects.all().order_by('-last_transaction_date')
+        return MutualFund.objects.all().filter(created_by=self.request.user).order_by('-last_transaction_date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -96,7 +96,7 @@ class SIPIndexView(LoginRequiredMixin, ListView):
     context_object_name = 'sip_list'
 
     def get_queryset(self):
-        return MutualFundSIP.objects.all().filter(active=True).order_by('-last_transaction_date')
+        return MutualFundSIP.objects.all().filter(active=True, created_by=self.request.user).order_by('-last_transaction_date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -120,7 +120,7 @@ def mf_create(request):
     if request.method == 'POST':
         form = MutualFundForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(user=request.user)
             return redirect('portfolioMFDetail', form.instance.pk)
         else:
             return render(request, 'portfolio/create.html', {'form': form})
@@ -154,7 +154,7 @@ def sip_create(request):
     if request.method == 'POST':
         form = MutualFundSIPForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(user=request.user)
             return redirect('sipDetail', form.instance.pk)
         else:
             render(request, 'portfolio/create.html', {'form': form})

@@ -1,8 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
-from datetime import datetime
 
-from .utils.common_enums import SIPFrequency
 from mutualFund.models import MutualFund as MutualFundGlobal
+from .utils.common_enums import SIPFrequency
 
 
 class MutualFund(models.Model):
@@ -10,6 +10,7 @@ class MutualFund(models.Model):
     mutual_fund_global = models.ForeignKey(MutualFundGlobal, verbose_name='Mutual Fund', related_name='investments', on_delete=models.DO_NOTHING)
     amount = models.DecimalField(decimal_places=2, max_digits=22, default=0)
     last_transaction_date = models.DateField(auto_now=False, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
@@ -29,6 +30,7 @@ class MutualFundSIP(models.Model):
         default=SIPFrequency.MONTHLY
     )
     last_transaction_date = models.DateField(auto_now=False, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
