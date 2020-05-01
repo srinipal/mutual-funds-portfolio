@@ -11,6 +11,7 @@ from mutualFund.forms import MutualFundForm
 from mutualFund.models import MutualFund
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 @login_required
 def mf_create(request):
     if request.method == 'POST':

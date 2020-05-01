@@ -1,10 +1,10 @@
 from django.urls import path
 
-from . import views, registration_views
+from . import views
 
 urlpatterns = [
     path('', views.portfolio, name='portfolio'),
-    path('signup/', registration_views.signup_request, name='signup'),
+    path('analysis/', views.portfolio_analysis, name='portfolioAnalysis'),
     path('mf-chart/', views.mf_chart_data, name='portfolioMFChart'),
     path('sip-chart/', views.sip_chart_data, name='portfolioSIPChart'),
     path('mutual-funds/', views.MFIndexView.as_view(), name='portfolioMFIndex'),

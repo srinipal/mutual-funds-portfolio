@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
+from mutualFund import mf_scrape_service
 from .forms import MutualFundForm, MutualFundSIPForm
 from .models import MutualFund, MutualFundSIP
 
@@ -172,3 +173,10 @@ def sip_edit(request, pk, template_name='portfolio/edit.html'):
         return redirect('sipDetail', pk)
 
     return render(request, template_name, {'form': form})
+
+
+@login_required
+def portfolio_analysis(request, template_name='mutualFund/scrape_response.html'):
+    mf_scrape_service.scrape_all()
+    return render(request, template_name)
+
