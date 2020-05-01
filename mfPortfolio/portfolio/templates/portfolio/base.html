@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mutual Fund Portfolio</title>
+    <title>{% block title %} Big Bucks {% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -18,7 +18,7 @@
         <a class="nav-link" href="{% url 'portfolio' %}">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'portfolioIndex' %}">Investments</a>
+        <a class="nav-link" href="{% url 'portfolioMFIndex' %}">Investments</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'sipIndex' %}">SIPs</a>
@@ -36,6 +36,11 @@
       </li>
     </ul>
   </div>
+  {% if user.is_authenticated %}
+  <div class="nav navbar-nav navbar-right">
+               <a href="{% url 'logout' %}" class="navbar-brand" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            </div>
+  {% endif %}
 </nav>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

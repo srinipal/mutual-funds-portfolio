@@ -9,6 +9,7 @@ class MutualFund(models.Model):
     holdings_url = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    last_scrape_date = models.DateField(null=True)
 
     def __str__(self):
         return self.mf_name

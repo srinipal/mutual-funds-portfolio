@@ -1,12 +1,13 @@
 from django.urls import path
 
-from . import views
+from . import views, registration_views
 
 urlpatterns = [
     path('', views.portfolio, name='portfolio'),
+    path('signup/', registration_views.signup_request, name='signup'),
     path('mf-chart/', views.mf_chart_data, name='portfolioMFChart'),
     path('sip-chart/', views.sip_chart_data, name='portfolioSIPChart'),
-    path('mutual-funds/', views.IndexView.as_view(), name='portfolioIndex'),
+    path('mutual-funds/', views.MFIndexView.as_view(), name='portfolioMFIndex'),
     path('mutual-funds-create/', views.mf_create, name='portfolioMFCreate'),
     path('mutual-funds-view/<int:pk>/', views.MutualFundDetailView.as_view(), name='portfolioMFDetail'),
     path('mutual-funds-edit/<int:pk>/', views.mf_edit, name='portfolioMFEdit'),

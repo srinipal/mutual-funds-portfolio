@@ -6,5 +6,5 @@ from mutualFund.models import MutualFund
 class MutualFundForm(forms.ModelForm):
     class Meta:
         model = MutualFund
-        fields = "__all__"
+        exclude = ['last_scrape_date']
 

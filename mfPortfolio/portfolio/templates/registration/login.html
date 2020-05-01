@@ -1,0 +1,29 @@
+{% extends 'portfolio/guest_base.html' %}
+{% block title %} User login {% endblock %}
+{% block content %}
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+
+            <div class="col-10 col-md-8 col-lg-6">
+                <form method="post">
+                    <h3>Login</h3>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <p>
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small style="color: grey">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </p>
+                    {% endfor %}
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

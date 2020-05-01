@@ -1,15 +1,20 @@
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import MutualFund, MutualFundSIP
-from .forms import MutualFundForm, MutualFundSIPForm
-from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .forms import MutualFundForm, MutualFundSIPForm
+from .models import MutualFund, MutualFundSIP
 
 
-def portfolio(request, template_name = 'portfolio/portfolio.html'):
+@login_required
+def portfolio(request, template_name='portfolio/portfolio.html'):
     return render(request, template_name)
 
 
+@login_required
 def mf_chart_data(request):
     mutual_funds = MutualFund.objects.all().order_by('-amount')
 
@@ -35,6 +40,7 @@ def mf_chart_data(request):
     return JsonResponse(chart)
 
 
+@login_required
 def sip_chart_data(request):
     sips = MutualFundSIP.objects.all().filter(active=True)\
         .values('mutual_fund__mutual_fund_global__mf_name')\
@@ -70,7 +76,8 @@ def sip_chart_data(request):
     return JsonResponse(chart)
 
 
-class IndexView(ListView):
+class MFIndexView(LoginRequiredMixin, ListView):
+    login_url = '/login'
     template_name = 'portfolio/index.html'
     context_object_name = 'mf_list'
 
@@ -83,7 +90,8 @@ class IndexView(ListView):
         return context
 
 
-class SIPIndexView(ListView):
+class SIPIndexView(LoginRequiredMixin, ListView):
+    login_url = '/login'
     template_name = 'portfolio/sip_index.html'
     context_object_name = 'sip_list'
 
@@ -96,16 +104,18 @@ class SIPIndexView(ListView):
         return context
 
 
-class MutualFundDetailView(DetailView):
+class MutualFundDetailView(LoginRequiredMixin, DetailView):
+    login_url = '/login'
     model = MutualFund
     template_name = 'portfolio/detail.html'
 
 
-class MutualFundSIPDetailView(DetailView):
+class MutualFundSIPDetailView(LoginRequiredMixin, DetailView):
     model = MutualFundSIP
     template_name = 'portfolio/sip_detail.html'
 
 
+@login_required
 def mf_create(request):
     if request.method == 'POST':
         form = MutualFundForm(request.POST)
@@ -117,6 +127,7 @@ def mf_create(request):
     return render(request, 'portfolio/create.html', {'form': form})
 
 
+@login_required
 def mf_edit(request, pk, template_name='portfolio/edit.html'):
     mutual_fund = get_object_or_404(MutualFund, pk=pk)
     form = MutualFundForm(request.POST or None, instance=mutual_fund, initial={
@@ -127,14 +138,16 @@ def mf_edit(request, pk, template_name='portfolio/edit.html'):
     return render(request, template_name, {'form': form})
 
 
+@login_required
 def mf_delete(request, pk, template_name='portfolio/delete.html'):
     mutual_fund = get_object_or_404(MutualFund, pk=pk)
     if request.method == 'POST':
         mutual_fund.delete()
-        return redirect('portfolioIndex')
+        return redirect('portfolioMFIndex')
     return render(request, template_name, {'object': mutual_fund})
 
 
+@login_required
 def sip_create(request):
     if request.method == 'POST':
         form = MutualFundSIPForm(request.POST)
@@ -145,6 +158,7 @@ def sip_create(request):
     return render(request, 'portfolio/create.html', {'form': form})
 
 
+@login_required
 def sip_edit(request, pk, template_name='portfolio/edit.html'):
     mutual_fund_sip = get_object_or_404(MutualFundSIP, pk=pk)
     form = MutualFundSIPForm(request.POST or None, instance=mutual_fund_sip, initial={
