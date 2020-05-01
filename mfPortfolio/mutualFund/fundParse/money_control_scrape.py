@@ -22,7 +22,11 @@ def get_stock_data(stock_tr_elem):
     name = process_utils.strip_off_new_line(stock_td_list[0].find(".//span[@class='port_right']/a").text)
     sector = process_utils.strip_off_new_line(stock_td_list[1].text)
     sector_total = process_utils.strip_off_new_line(stock_td_list[2].text)
+    if sector_total is not None:
+        sector_total = float(sector_total)
     value = process_utils.strip_off_new_line(stock_td_list[3].text)
+    if value is not None:
+        value = float(value)
     holdings_percent = process_utils.parse_percent(process_utils.strip_off_new_line(stock_td_list[4].text))
     prev_month_change_percent = process_utils.parse_percent(process_utils.strip_off_new_line(stock_td_list[5].text))
     past_year_highest_percent = process_utils.parse_percent(process_utils.strip_off_new_line(stock_td_list[6].text))
@@ -31,6 +35,8 @@ def get_stock_data(stock_tr_elem):
     prev_month_change_qty = process_utils.parse_currency_val(process_utils.strip_off_new_line(stock_td_list[9].text))
     m_cap = process_utils.strip_off_new_line(stock_td_list[10].text)
     group_name = process_utils.strip_off_new_line(stock_td_list[11].text)
+    if group_name is not None:
+        group_name = float(group_name)
 
     return [name, sector, sector_total, value, holdings_percent, prev_month_change_percent, past_year_highest_percent, past_year_lowest_percent,
             quantity, prev_month_change_qty, m_cap, group_name]
