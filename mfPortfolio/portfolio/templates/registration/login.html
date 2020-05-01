@@ -12,6 +12,13 @@
                     <h5>Login</h5>
 
                     {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <ul class='form-errors', style="background-color: pink">
+                            {% for error in form.non_field_errors %}
+                                <li style="color: red">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                     {% for field in form %}
                         <div class="form-group">
                             <p>
@@ -32,7 +39,7 @@
                     </div>
                     <div class="row align-items-center">
                         <div class="col">
-                        Not a member yet? <a href="{% url 'signup' %}">Register now</a>
+                            Not a member yet? <a href="{% url 'signup' %}">Register now</a>
                         </div>
                     </div>
                 </form>

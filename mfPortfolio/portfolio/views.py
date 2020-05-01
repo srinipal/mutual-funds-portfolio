@@ -122,6 +122,8 @@ def mf_create(request):
         if form.is_valid():
             form.save()
             return redirect('portfolioMFDetail', form.instance.pk)
+        else:
+            return render(request, 'portfolio/create.html', {'form': form})
     form = MutualFundForm()
 
     return render(request, 'portfolio/create.html', {'form': form})
@@ -154,6 +156,8 @@ def sip_create(request):
         if form.is_valid():
             form.save()
             return redirect('sipDetail', form.instance.pk)
+        else:
+            render(request, 'portfolio/create.html', {'form': form})
     form = MutualFundSIPForm()
     return render(request, 'portfolio/create.html', {'form': form})
 
@@ -166,4 +170,5 @@ def sip_edit(request, pk, template_name='portfolio/edit.html'):
     if form.is_valid():
         form.save()
         return redirect('sipDetail', pk)
+
     return render(request, template_name, {'form': form})

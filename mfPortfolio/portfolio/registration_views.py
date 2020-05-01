@@ -13,6 +13,9 @@ def signup_request(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect('portfolio')
+        else:
+            return render(request, 'portfolio/signup.html', {'form': form})
+
     form = UserCreationForm()
 
     return render(request, 'portfolio/signup.html', {'form': form})
