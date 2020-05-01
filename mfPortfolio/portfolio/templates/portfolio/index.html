@@ -27,15 +27,15 @@
                 <div class="col-md-1 col-xs-1 col-sm-1">
 
                     <a href="{% url 'portfolioMFDetail' mutual_fund.pk %}">
-                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        <i class="fa fa-paper-plane" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Details"></i>
                     </a>
 
                     <a href="{% url 'sipCreate' %}">
-                        <i class="fa fa-money" aria-hidden="true"></i>
+                        <i class="fa fa-money" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Add an SIP"></i>
                     </a>
 
                     <a href="{% url 'portfolioMFEdit' mutual_fund.pk %}">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Edit"></i>
                     </a>
 
                     {% comment %}<a href="{% url 'mfDelete' mutual_fund.pk %}">
@@ -55,7 +55,7 @@
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
         </div>
         <br/>
-        <div class="fixed-bottom p-2" data-toggle="tooltip" data-placement="top" title="Add to portfolio">
+        <div class="fixed-bottom p-2" data-toggle="tooltip" data-placement="top" title="Add an investment">
             <a href="{% url 'portfolioMFCreate' %}">
                 <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
             </a>

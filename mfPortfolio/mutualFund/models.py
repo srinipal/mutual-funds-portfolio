@@ -5,7 +5,7 @@ from .utils.common_enums import AssetClass
 
 class MutualFund(models.Model):
     id = models.AutoField(primary_key=True)
-    mf_name = models.CharField(max_length=256)
+    mf_name = models.CharField(max_length=256, verbose_name='Mutual Fund Name')
     holdings_url = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
