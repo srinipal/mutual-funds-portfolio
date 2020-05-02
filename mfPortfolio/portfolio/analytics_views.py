@@ -7,7 +7,7 @@ from django.http import JsonResponse
 
 @login_required
 def portfolio_analysis(request, template_name='portfolio/portfolio_analysis.html'):
-    mf_scrape_service.scrape_all()
+    mf_scrape_service.scrape_all(request.user)
     return render(request, template_name)
 
 
@@ -19,7 +19,7 @@ def portfolio_sector_distribution_data(request):
 
     chart = {
         'chart': {'type': 'pie'},
-        'title': {'text': 'Sector Distribution'},
+        'title': {'text': 'Sector-wise Distribution'},
         'tooltip': {
             'pointFormat': '<b>{point.y}({point.percentage:.1f}%)</b>'
         },
@@ -32,7 +32,7 @@ def portfolio_sector_distribution_data(request):
             }
         },
         'series': [{
-            'name': 'Sector Distribution',
+            'name': 'Sector-wise Distribution',
             'data': sector_distribution_pie_data
         }]
     }
@@ -47,7 +47,7 @@ def portfolio_stock_distribution_data(request):
 
     chart = {
         'chart': {'type': 'pie'},
-        'title': {'text': 'Stock Distribution'},
+        'title': {'text': 'Stock-wise Distribution'},
         'tooltip': {
             'pointFormat': '<b>{point.y}({point.percentage:.1f}%)</b>'
         },
@@ -60,7 +60,7 @@ def portfolio_stock_distribution_data(request):
             }
         },
         'series': [{
-            'name': 'Stock Distribution',
+            'name': 'Stock-wise Distribution',
             'data': stock_shares_distribution_data
         }]
     }

@@ -2,15 +2,27 @@
 {% block title %} Portfolio {% endblock %}
 {% load humanize %}
 {% block content %}
-
-    <div id="sip-container" data-url="{% url 'portfolioSIPChart' %}"></div>
-    <div id="mf-container" data-url="{% url 'portfolioMFChart' %}"></div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div id="sip-container" data-url="{% url 'portfolioSIPChart' %}"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="mf-container" data-url="{% url 'portfolioMFChart' %}"></div>
+        </div>
+    </div>
     <script>
         $.ajax({
             url: $("#mf-container").attr("data-url"),
             dataType: 'json',
             success: function (data) {
                 Highcharts.chart("mf-container", data);
+            },
+            error: function (jqXHR, exception) {
+                let msg = 'Couldn\'t fetch the investments. Please contact support';
+                if (jqXHR.status == 404) {
+                    msg = 'You don\'t have any investments.'
+                }
+                $('#mf-container').html(msg);
             }
         });
         $.ajax({
@@ -18,6 +30,13 @@
             dataType: 'json',
             success: function (data) {
                 Highcharts.chart("sip-container", data);
+            },
+            error: function (jqXHR, exception) {
+                let msg = 'Couldn\'t fetch the active SIPs. Please contact support';
+                if (jqXHR.status == 404) {
+                    msg = 'You don\'t have any active SIPs.'
+                }
+                $('#sip-container').html(msg);
             }
         });
 

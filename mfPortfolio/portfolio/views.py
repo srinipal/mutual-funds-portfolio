@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 
@@ -19,6 +19,10 @@ def portfolio(request, template_name='portfolio/portfolio.html'):
 def mf_chart_data(request):
     mutual_funds = MutualFund.objects.all().filter(created_by=request.user).order_by('-amount')
 
+    mutual_funds_chart_data = list(map(lambda mutual_fund: {'name': mutual_fund.mutual_fund_global.mf_name, 'y': int(mutual_fund.amount)}, mutual_funds))
+    if not mutual_funds_chart_data:
+        raise Http404('No mutual funds found for this user')
+
     chart = {
         'chart': {'type': 'pie'},
         'title': {'text': 'Mutual Fund Distribution'},
@@ -35,7 +39,7 @@ def mf_chart_data(request):
         },
         'series': [{
             'name': 'Mutual Fund Distribution',
-            'data': list(map(lambda mutual_fund: {'name': mutual_fund.mutual_fund_global.mf_name, 'y': int(mutual_fund.amount)}, mutual_funds))
+            'data': mutual_funds_chart_data
         }]
     }
     return JsonResponse(chart)
@@ -47,6 +51,10 @@ def sip_chart_data(request):
         .values('mutual_fund__mutual_fund_global__mf_name')\
         .annotate(total_sip=Sum('amount'))\
         .order_by('-total_sip')
+    sips_chart_data = list(map(lambda sip: {'name': sip['mutual_fund__mutual_fund_global__mf_name'], 'y': int(sip['total_sip'])}, sips))
+
+    if not sips_chart_data:
+        raise Http404('No active SIPs found for this user')
 
     chart = {
         'chart': {'type': 'column'},
@@ -71,7 +79,7 @@ def sip_chart_data(request):
         },
         'series': [{
             'name': 'Active SIPs',
-            'data': list(map(lambda sip: {'name': sip['mutual_fund__mutual_fund_global__mf_name'], 'y': int(sip['total_sip'])}, sips))
+            'data': sips_chart_data
         }]
     }
     return JsonResponse(chart)

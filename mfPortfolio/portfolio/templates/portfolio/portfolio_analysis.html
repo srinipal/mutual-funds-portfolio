@@ -2,12 +2,14 @@
 {% block title %} Portfolio {% endblock %}
 {% load humanize %}
 {% block content %}
-    <div class="row justify-content-center">
-        <div id="sector-distribution-container" data-url="{% url 'portfolioSectorDistribution' %}"></div>
-    </div>
-    <div class="row justify-content-center">
-        <div id="stock-distribution-container" data-url="{% url 'portfolioStockDistribution' %}"></div>
-        <div id="popular-stocks-container" data-url="{% url 'portfolioPopularStocks' %}"></div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div id="sector-distribution-container" data-url="{% url 'portfolioSectorDistribution' %}"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="stock-distribution-container" data-url="{% url 'portfolioStockDistribution' %}"></div>
+            <div id="popular-stocks-container" data-url="{% url 'portfolioPopularStocks' %}"></div>
+        </div>
     </div>
     <script>
         $.ajax({
