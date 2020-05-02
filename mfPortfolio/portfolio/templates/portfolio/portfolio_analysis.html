@@ -1,0 +1,35 @@
+{% extends 'portfolio/base.html' %}
+{% block title %} Portfolio {% endblock %}
+{% load humanize %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div id="sector-distribution-container" data-url="{% url 'portfolioSectorDistribution' %}"></div>
+    </div>
+    <div class="row justify-content-center">
+        <div id="stock-distribution-container" data-url="{% url 'portfolioStockDistribution' %}"></div>
+        <div id="popular-stocks-container" data-url="{% url 'portfolioPopularStocks' %}"></div>
+    </div>
+    <script>
+        $.ajax({
+            url: $("#sector-distribution-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("sector-distribution-container", data);
+            }
+        });
+        $.ajax({
+            url: $("#stock-distribution-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("stock-distribution-container", data);
+            }
+        });
+        $.ajax({
+            url: $("#popular-stocks-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("popular-stocks-container", data);
+            }
+        });
+    </script>
+{% endblock %}
