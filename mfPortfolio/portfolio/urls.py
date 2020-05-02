@@ -15,8 +15,9 @@ urlpatterns = [
     path('sips-create/', views.sip_create, name='sipCreate'),
     path('sips-edit/<int:pk>/', views.sip_edit, name='sipEdit'),
     path('sips-view/<int:pk>/', views.MutualFundSIPDetailView.as_view(), name='sipDetail'),
-    path('analysis/', analytics_views.portfolio_analysis, name='portfolioAnalysis'),
-    path('sector-distribution-chart/', analytics_views.portfolio_sector_distribution_data, name='portfolioSectorDistribution'),
-    path('stock-distribution-chart/', analytics_views.portfolio_stock_distribution_data, name='portfolioStockDistribution'),
-    path('popular-stocks-chart/', analytics_views.portfolio_popular_stocks, name='portfolioPopularStocks'),
+    path('portfolio-analysis/', analytics_views.portfolio_analysis, name='portfolioAnalysis'),
+    path('sip-analysis/', analytics_views.sip_analysis, name='sipAnalysis'),
+    path('sector-distribution-chart/', analytics_views.get_sector_distribution_data, name='sectorDistribution'),
+    path('stock-distribution-chart/', analytics_views.get_stock_distribution_data, name='stockDistribution'),
+    path('popular-stocks-chart/', analytics_views.get_popular_stocks, name='popularStocks'),
 ]

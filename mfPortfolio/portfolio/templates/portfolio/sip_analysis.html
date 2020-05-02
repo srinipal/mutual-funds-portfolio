@@ -1,14 +1,14 @@
 {% extends 'portfolio/base.html' %}
-{% block title %} Portfolio Analysis {% endblock %}
+{% block title %} SIP Analysis {% endblock %}
 {% load humanize %}
 {% block content %}
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div id="sector-distribution-container" data-url="{% url 'sectorDistribution' %}?type=portfolio"></div>
+            <div id="sector-distribution-container" data-url="{% url 'sectorDistribution' %}?type=sip"></div>
         </div>
         <div class="row justify-content-center">
-            <div id="stock-distribution-container" data-url="{% url 'stockDistribution' %}?type=portfolio"></div>
-            <div id="popular-stocks-container" data-url="{% url 'popularStocks' %}?type=portfolio"></div>
+            <div id="stock-distribution-container" data-url="{% url 'stockDistribution' %}?type=sip"></div>
+            <div id="popular-stocks-container" data-url="{% url 'popularStocks' %}?type=sip"></div>
         </div>
     </div>
     <script>

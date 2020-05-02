@@ -12,8 +12,19 @@ def portfolio_analysis(request, template_name='portfolio/portfolio_analysis.html
 
 
 @login_required
-def portfolio_sector_distribution_data(request):
-    sector_shares = analytics_helper.get_portfolio_sector_shares(request.user.id)
+def sip_analysis(request, template_name='portfolio/sip_analysis.html'):
+    mf_scrape_service.scrape_all(request.user)
+    return render(request, template_name)
+
+
+@login_required
+def get_sector_distribution_data(request):
+    sector_shares = []
+    analysis_type = request.GET['type']
+    if 'sip' == analysis_type:
+        sector_shares = analytics_helper.get_sip_sector_shares(request.user.id)
+    else:
+        sector_shares = analytics_helper.get_portfolio_sector_shares(request.user.id)
 
     sector_distribution_pie_data = analytics_helper.to_2d_chart_data(sector_shares, max_categories=20)
 
@@ -40,8 +51,13 @@ def portfolio_sector_distribution_data(request):
 
 
 @login_required
-def portfolio_stock_distribution_data(request):
-    stock_shares = analytics_helper.get_portfolio_stock_shares(request.user.id)
+def get_stock_distribution_data(request):
+    stock_shares = []
+    analysis_type = request.GET['type']
+    if 'sip' == analysis_type:
+        stock_shares = analytics_helper.get_sip_stock_shares(request.user.id)
+    else:
+        stock_shares = analytics_helper.get_portfolio_stock_shares(request.user.id)
 
     stock_shares_distribution_data = analytics_helper.to_2d_chart_data(stock_shares, max_categories=20)
 
@@ -69,8 +85,13 @@ def portfolio_stock_distribution_data(request):
 
 
 @login_required
-def portfolio_popular_stocks(request):
-    popular_stocks = analytics_helper.get_portfolio_popular_stocks(request.user.id)
+def get_popular_stocks(request):
+    popular_stocks = []
+    analysis_type = request.GET['type']
+    if 'sip' == analysis_type:
+        popular_stocks = analytics_helper.get_sip_popular_stocks(request.user.id)
+    else:
+        popular_stocks = analytics_helper.get_portfolio_popular_stocks(request.user.id)
 
     popular_stocks_data = analytics_helper.to_2d_chart_data(popular_stocks)
 
