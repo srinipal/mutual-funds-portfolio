@@ -3,6 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
 
+def home_request(request, template_name='guest/home.html'):
+    return render(request, template_name)
+
+
 def signup_request(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -14,8 +18,8 @@ def signup_request(request):
             login(request, user)
             return redirect('portfolio')
         else:
-            return render(request, 'portfolio/signup.html', {'form': form})
+            return render(request, 'portfolio/templates/registration/signup.html', {'form': form})
 
     form = UserCreationForm()
 
-    return render(request, 'portfolio/signup.html', {'form': form})
+    return render(request, 'portfolio/templates/registration/signup.html', {'form': form})

@@ -1,0 +1,29 @@
+{% extends 'portfolio/guest_base.html' %}
+{% block title %} User login {% endblock %}
+{% block content %}
+    <div class="container-fluid h-100 bg-light text-dark">
+        <div class="row justify-content-center align-items-center">
+            <h3>Big Bucks</h3>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col">
+                Hello world, this page is still in progress.
+                Please comeback later...
+            </div>
+        </div>
+
+        <br />
+        <div class="row justify-content-center align-items-center">
+            <div class="col">
+                Already a member? <a href="{% url 'login' %}">Log in</a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+            <div class="col">
+                Not a member yet? <a href="{% url 'signup' %}">Register now</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

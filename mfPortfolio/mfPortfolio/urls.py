@@ -20,6 +20,7 @@ from django.contrib.auth import views as auth_views
 from portfolio import registration_views
 
 urlpatterns = [
+    path('', registration_views.home_request, name='brand'),
     path('admin/', admin.site.urls),
     path('signup/', registration_views.signup_request, name='signup'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
