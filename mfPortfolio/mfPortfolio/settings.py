@@ -133,3 +133,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/portfolio'
 
+SCRAPE_DIR = '/Users/srinivas.g/Documents/big_bucks_scrape'

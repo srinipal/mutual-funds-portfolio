@@ -2,6 +2,7 @@ from lxml import etree
 import urllib.request, urllib.error, urllib.parse
 import os
 from mutualFund.utils import process_utils, common_enums
+from django.conf import settings
 
 
 def get_table_headers(thead_elem):
@@ -44,8 +45,8 @@ def get_stock_data(stock_tr_elem):
 
 def download_mf_data(mf_id, url):
     r = urllib.request.urlopen(url)
-    absolute_path = os.path.dirname(os.path.abspath(__file__))
-    file_name = absolute_path + os.path.sep + "mf_pages" + os.path.sep + mf_id + '.html'
+    file_name = settings.SCRAPE_DIR + os.path.sep + mf_id + '.html'
+    print('Downloading the file to ' + file_name)
     with(open(file_name, 'wb')) as fd:
         fd.write(r.read())
     fd.close()
