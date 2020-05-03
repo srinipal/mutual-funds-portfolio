@@ -18,8 +18,8 @@ def signup_request(request):
             login(request, user)
             return redirect('portfolio')
         else:
-            return render(request, 'portfolio/templates/registration/signup.html', {'form': form})
+            return render(request, 'registration/signup.html', {'form': form})
 
     form = UserCreationForm()
 
-    return render(request, 'portfolio/templates/registration/signup.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form})
