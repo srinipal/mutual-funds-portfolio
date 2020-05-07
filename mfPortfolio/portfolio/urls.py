@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, analytics_views
+from . import views, analytics_views, rebalance_views
 
 urlpatterns = [
     path('', views.portfolio, name='portfolio'),
@@ -20,4 +20,5 @@ urlpatterns = [
     path('sector-distribution-chart/', analytics_views.get_sector_distribution_data, name='sectorDistribution'),
     path('stock-distribution-chart/', analytics_views.get_stock_distribution_data, name='stockDistribution'),
     path('popular-stocks-chart/', analytics_views.get_popular_stocks, name='popularStocks'),
+    path('portfolio-rebalance/', rebalance_views.re_balance, name='portfolioRebalance'),
 ]

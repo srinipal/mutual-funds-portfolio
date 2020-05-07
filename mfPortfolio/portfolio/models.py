@@ -35,3 +35,19 @@ class MutualFundSIP(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+
+class PortfolioRebalance(models.Model):
+    id = models.AutoField(primary_key=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+class SIPRebalance(models.Model):
+    id = models.AutoField(primary_key=True)
+    mutual_fund_global = models.ForeignKey(MutualFundGlobal, verbose_name='Mutual Fund', on_delete=models.DO_NOTHING)
+    amount = models.DecimalField(decimal_places=2, max_digits=22, default=0)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+

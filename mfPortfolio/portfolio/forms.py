@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.db import connection
 
-from .models import MutualFund, MutualFundSIP
+from .models import MutualFund, MutualFundSIP, SIPRebalance
 from .utils import process_utils
 
 
@@ -87,4 +87,10 @@ class MutualFundSIPForm(forms.ModelForm):
 
         if self.has_changed():
             MutualFundSIPForm.event_scheduling_with_db(sip_instance, cleanup_old_event, sip_instance.active)
+
+
+class SIPRebalanceForm(forms.ModelForm):
+    class Meta:
+        model = SIPRebalance
+        fields = "__all__"
 
