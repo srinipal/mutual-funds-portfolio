@@ -46,6 +46,7 @@ class PortfolioRebalance(models.Model):
 class SIPRebalance(models.Model):
     id = models.AutoField(primary_key=True)
     mutual_fund_global = models.ForeignKey(MutualFundGlobal, verbose_name='Mutual Fund', on_delete=models.DO_NOTHING)
+    re_balance = models.ForeignKey(PortfolioRebalance, verbose_name='sips', on_delete=models.CASCADE)
     amount = models.DecimalField(decimal_places=2, max_digits=22, default=0)
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)

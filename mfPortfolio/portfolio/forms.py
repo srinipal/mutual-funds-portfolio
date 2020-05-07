@@ -92,5 +92,5 @@ class MutualFundSIPForm(forms.ModelForm):
 class SIPRebalanceForm(forms.ModelForm):
     class Meta:
         model = SIPRebalance
-        fields = "__all__"
+        exclude = ["created_by", "re_balance"]
 
