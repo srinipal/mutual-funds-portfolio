@@ -9,20 +9,39 @@
             {{ sip_formset.management_form }}
             {% for sip_form in sip_formset %}
                 <div class="sip-formset form-group">
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2 col-sm-2 ">
+                            {{ sip_form.mutual_fund_global.label }}
+                        </div>
+                        <div class="col-md-4 col-xs-4 col-sm-4">
+                            {{ sip_form.mutual_fund_global }}
+                        </div>
+                        <div class="col-md-1 col-xs-1 col-sm-1">
+                            {{ sip_form.amount.label }}
+                        </div>
+                        <div class="col-md-4 col-xs-4 col-sm-4">
+                            {{ sip_form.amount }}
+                        </div>
 
-                    {{ sip_form.mutual_fund_global.label }} {{ sip_form.mutual_fund_global }}
-                    {% if sip_form.mutual_fund_global.errors %}
-                        {% for error in sip_form.mutual_fund_global.errors %}
-                            {{ error|escape }}
-                        {% endfor %}
-                    {% endif %}
-                    &nbsp;&nbsp;&nbsp;
-                    {{ sip_form.amount.label }} {{ sip_form.amount }}
-                    {% if sip_form.amount.errors %}
-                        {% for error in sip_form.amount.errors %}
-                            {{ error|escape }}
-                        {% endfor %}
-                    {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2 col-sm-2"></div>
+                        <div class="col-md-4 col-xs-4 col-sm-4" style="color: red">
+                            {% if sip_form.mutual_fund_global.errors %}
+                                {% for error in sip_form.mutual_fund_global.errors %}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+                        <div class="col-md-4 col-xs-4 col-sm-4" style="color: red">
+                            {% if sip_form.amount.errors %}
+                                {% for error in sip_form.amount.errors %}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
 
@@ -31,7 +50,9 @@
                     {{ error|escape }}
                 {% endfor %}
             {% endif %}
-            <input type="submit" value="Plan" class="button"/>
+            <div class="form-group">
+                <button type="submit" class="btn-primary btn">Plan</button>
+            </div>
         </form>
     </div>
     <script>
