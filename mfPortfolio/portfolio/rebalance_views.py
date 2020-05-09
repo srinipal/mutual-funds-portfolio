@@ -28,6 +28,8 @@ def re_balance(request):
 def re_balance_activity_create(request, template_name='portfolio/new_rebalance_activity.html'):
 
     SIPFormSet = formset_factory(SIPRebalanceForm, BaseFormSet)
+    if request.method == 'GET':
+        mf_scrape_service.scrape_all()
     if request.method == 'POST':
         sip_formset = SIPFormSet(request.POST)
         if sip_formset.is_valid():
