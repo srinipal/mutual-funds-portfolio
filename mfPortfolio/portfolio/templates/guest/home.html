@@ -1,5 +1,5 @@
 {% extends 'portfolio/guest_base.html' %}
-{% block title %} User login {% endblock %}
+{% block title %} Big bucks {% endblock %}
 {% block content %}
     <div class="container-fluid h-100 bg-light text-dark">
         <div class="row justify-content-center align-items-center">
@@ -14,16 +14,24 @@
         </div>
 
         <br />
-        <div class="row justify-content-center align-items-center">
-            <div class="col">
-                Already a member? <a href="{% url 'login' %}">Log in</a>
+        {% if user.is_authenticated %}
+            <div class="row justify-content-center align-items-center">
+                <div class="col">
+                    Take me to my <a href="{% url 'portfolio' %}">portfolio</a>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <div class="row justify-content-center align-items-center">
+                <div class="col">
+                    Already a member? <a href="{% url 'login' %}">Log in</a>
+                </div>
+            </div>
 
-        <div class="row justify-content-center align-items-center">
-            <div class="col">
-                Not a member yet? <a href="{% url 'signup' %}">Register now</a>
+            <div class="row justify-content-center align-items-center">
+                <div class="col">
+                    Not a member yet? <a href="{% url 'signup' %}">Register now</a>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 {% endblock %}
