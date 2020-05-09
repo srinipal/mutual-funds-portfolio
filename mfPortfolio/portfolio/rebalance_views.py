@@ -10,15 +10,24 @@ from .models import MutualFundSIP, SIPRebalance, PortfolioRebalance
 from . import analytics_helper
 from mutualFund import mf_scrape_service
 
+
 @login_required
 def re_balance(request):
-
     sip_rebalance_activities = analytics_helper.get_sip_rebalance_activities(request.user.id)
 
-    SIPFormSet = formset_factory(SIPRebalanceForm, BaseFormSet)
     if request.method == 'GET':
         mf_scrape_service.scrape_all()
 
+    context = {
+        're_balance_activities': sip_rebalance_activities
+    }
+    return render(request, 'portfolio/portfolio_rebalance.html', context)
+
+
+@login_required
+def re_balance_activity_create(request, template_name='portfolio/new_rebalance_activity.html'):
+
+    SIPFormSet = formset_factory(SIPRebalanceForm, BaseFormSet)
     if request.method == 'POST':
         sip_formset = SIPFormSet(request.POST)
         if sip_formset.is_valid():
@@ -35,6 +44,7 @@ def re_balance(request):
                                          re_balance=portfolio_rebalance))
 
                     SIPRebalance.objects.bulk_create(new_sips)
+                return redirect('portfolioRebalance')
             except IntegrityError:  # If the transaction failed
                 messages.error(request, 'There was an error saving your profile.')
 
@@ -45,10 +55,9 @@ def re_balance(request):
 
         sip_formset = SIPFormSet(initial=initial_mf_sips)
     context = {
-        'sip_formset': sip_formset,
-        're_balance_activities': sip_rebalance_activities
+        'sip_formset': sip_formset
     }
-    return render(request, 'portfolio/portfolio_rebalance.html', context)
+    return render(request, template_name, context)
 
 
 @login_required

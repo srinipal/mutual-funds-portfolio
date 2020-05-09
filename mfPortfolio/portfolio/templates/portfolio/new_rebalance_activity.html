@@ -3,4 +3,64 @@
 {% load humanize %}
 {% block content %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
+    <div class="container-fluid">
+        <form method="post">
+            {% csrf_token %}
+            {{ sip_formset.management_form }}
+            {% for sip_form in sip_formset %}
+                <div class="sip-formset form-group">
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2 col-sm-2 ">
+                            {{ sip_form.mutual_fund_global.label }}
+                        </div>
+                        <div class="col-md-4 col-xs-4 col-sm-4">
+                            {{ sip_form.mutual_fund_global }}
+                        </div>
+                        <div class="col-md-1 col-xs-1 col-sm-1">
+                            {{ sip_form.amount.label }}
+                        </div>
+                        <div class="col-md-4 col-xs-4 col-sm-4">
+                            {{ sip_form.amount }}
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2 col-sm-2"></div>
+                        <div class="col-md-4 col-xs-4 col-sm-4" style="color: red">
+                            {% if sip_form.mutual_fund_global.errors %}
+                                {% for error in sip_form.mutual_fund_global.errors %}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+                        <div class="col-md-4 col-xs-4 col-sm-4" style="color: red">
+                            {% if sip_form.amount.errors %}
+                                {% for error in sip_form.amount.errors %}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if sip_formset.non_form_errors %}
+                {% for error in sip_formset.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
+            <br/><br/>
+            <div class="form-group">
+                <button type="submit" class="btn-primary btn">Plan</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $('.sip-formset').formset({
+            addText: 'Add SIP',
+            deleteText: 'Remove'
+        });
+    </script>
 {% endblock %}
