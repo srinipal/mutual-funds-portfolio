@@ -7,13 +7,13 @@ from django.http import JsonResponse
 
 @login_required
 def portfolio_analysis(request, template_name='portfolio/portfolio_analysis.html'):
-    mf_scrape_service.scrape_all(request.user)
+    mf_scrape_service.scrape_all_user(request.user)
     return render(request, template_name)
 
 
 @login_required
 def sip_analysis(request, template_name='portfolio/sip_analysis.html'):
-    mf_scrape_service.scrape_all(request.user)
+    mf_scrape_service.scrape_all_user(request.user)
     return render(request, template_name)
 
 

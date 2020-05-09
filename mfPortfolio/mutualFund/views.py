@@ -52,6 +52,6 @@ def mf_scrape(request, template_name='mutualFund/scrape_response.html'):
 
 @login_required
 def mf_scrape_all(request, template_name='mutualFund/scrape_response.html'):
-    mf_scrape_service.scrape_all(request.user)
+    mf_scrape_service.scrape_all_user(request.user)
     return render(request, template_name)
 
