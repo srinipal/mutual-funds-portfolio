@@ -18,7 +18,10 @@ def mf_create(request):
         form = MutualFundForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('mfDetail', form.instance.pk)
+            mutual_fund = form.instance
+            scraping_th = threading.Thread(target=mf_scrape_service.scrape, args=[mutual_fund, ])
+            scraping_th.start()
+            return redirect('mfDetail', mutual_fund.pk)
     form = MutualFundForm()
     return render(request, 'portfolio/create.html', {'form': form})
 
@@ -49,6 +52,6 @@ def mf_scrape(request, template_name='mutualFund/scrape_response.html'):
 
 @login_required
 def mf_scrape_all(request, template_name='mutualFund/scrape_response.html'):
-    mf_scrape_service.scrape_all()
+    mf_scrape_service.scrape_all(request.user)
     return render(request, template_name)
 

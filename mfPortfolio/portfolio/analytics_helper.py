@@ -1,6 +1,6 @@
 from django.db import connection
 from .raw_sqls import PORTFOLIO_STOCK_SHARES, PORTFOLIO_SECTOR_SHARES, PORTFOLIO_POPULAR_STOCKS, \
-    SIP_STOCK_SHARES, SIP_SECTOR_SHARES, SIP_POPULAR_STOCKS
+    SIP_STOCK_SHARES, SIP_SECTOR_SHARES, SIP_POPULAR_STOCKS, SIP_REBALANCE_ACTIVITIES, SIP_REBALANCE_SECTOR_SHARES, SIP_REBALANCE_STOCK_SHARES
 
 OTHERS_PIE_NAME = 'Others'
 
@@ -69,6 +69,38 @@ def get_sip_popular_stocks(user_id):
             popular_stock_shares.append({'x': row[0], 'y': row[1]})
 
     return popular_stock_shares
+
+
+def get_sip_rebalance_activities(user_id):
+    sip_rebalance_activities = []
+    with connection.cursor() as cursor:
+        cursor.execute(SIP_REBALANCE_ACTIVITIES, user_id)
+
+        for row in cursor:
+            sip_rebalance_activities.append({'re_balance_id': row[0], 'created_at': row[1], 'amount': row[2]})
+    return sip_rebalance_activities
+
+
+def get_sip_rebalance_stock_shares(rebalance_id):
+    stock_shares = []
+    with connection.cursor() as cursor:
+        cursor.execute(SIP_REBALANCE_STOCK_SHARES, rebalance_id)
+
+        for row in cursor:
+            stock_shares.append({'x': row[0], 'y': row[1]})
+
+    return stock_shares
+
+
+def get_sip_rebalance_sector_shares(rebalance_id):
+    sector_shares = []
+    with connection.cursor() as cursor:
+        cursor.execute(SIP_REBALANCE_SECTOR_SHARES, rebalance_id)
+
+        for row in cursor:
+            sector_shares.append({'x': row[0], 'y': row[1]})
+
+    return sector_shares
 
 
 def to_2d_chart_data(stock_shares, max_categories=None):

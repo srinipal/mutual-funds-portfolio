@@ -23,6 +23,9 @@ def get_sector_distribution_data(request):
     analysis_type = request.GET['type']
     if 'sip' == analysis_type:
         sector_shares = analytics_helper.get_sip_sector_shares(request.user.id)
+    elif 'sipRebalance' == analysis_type:
+        rebalance_id = request.GET['rebalance-id']
+        sector_shares = analytics_helper.get_sip_rebalance_sector_shares(rebalance_id)
     else:
         sector_shares = analytics_helper.get_portfolio_sector_shares(request.user.id)
 
@@ -56,6 +59,9 @@ def get_stock_distribution_data(request):
     analysis_type = request.GET['type']
     if 'sip' == analysis_type:
         stock_shares = analytics_helper.get_sip_stock_shares(request.user.id)
+    elif 'sipRebalance' == analysis_type:
+        rebalance_id = request.GET['rebalance-id']
+        stock_shares = analytics_helper.get_sip_rebalance_stock_shares(rebalance_id)
     else:
         stock_shares = analytics_helper.get_portfolio_stock_shares(request.user.id)
 

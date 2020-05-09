@@ -7,11 +7,17 @@ from django.shortcuts import render, redirect
 
 from .forms import SIPRebalanceForm
 from .models import MutualFundSIP, SIPRebalance, PortfolioRebalance
-
+from . import analytics_helper
+from mutualFund import mf_scrape_service
 
 @login_required
 def re_balance(request):
+
+    sip_rebalance_activities = analytics_helper.get_sip_rebalance_activities(request.user.id)
+
     SIPFormSet = formset_factory(SIPRebalanceForm, BaseFormSet)
+    if request.method == 'GET':
+        mf_scrape_service.scrape_all()
 
     if request.method == 'POST':
         sip_formset = SIPFormSet(request.POST)
@@ -39,6 +45,13 @@ def re_balance(request):
 
         sip_formset = SIPFormSet(initial=initial_mf_sips)
     context = {
-        'sip_formset': sip_formset
+        'sip_formset': sip_formset,
+        're_balance_activities': sip_rebalance_activities
     }
     return render(request, 'portfolio/portfolio_rebalance.html', context)
+
+
+@login_required
+def re_balance_activity(request, pk, template_name='portfolio/rebalance_activity.html'):
+    context = { 'rebalance_id': pk}
+    return render(request, template_name, context)

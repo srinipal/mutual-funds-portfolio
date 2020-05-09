@@ -62,3 +62,11 @@ def scrape_all(user):
     for mutual_fund in MutualFund.objects.all().filter(investments__created_by=user):
         scraping_th = threading.Thread(target=scrape, args=[mutual_fund, ])
         scraping_th.start()
+
+
+def scrape_all():
+    for mutual_fund in MutualFund.objects.all():
+        scraping_th = threading.Thread(target=scrape, args=[mutual_fund, ])
+        scraping_th.start()
+
+

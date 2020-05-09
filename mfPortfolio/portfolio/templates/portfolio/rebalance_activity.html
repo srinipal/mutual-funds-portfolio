@@ -1,0 +1,52 @@
+{% extends 'portfolio/base.html' %}
+{% block title %} Portfolio Analysis {% endblock %}
+{% load humanize %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col text-center"><h4>Current SIP Analysis</h4></div>
+            <div class="col text-center"><h4>Re-balanced SIP Analysis</h4></div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col justify-content-center" id="stock-distribution-container" data-url="{% url 'stockDistribution' %}?type=sip"></div>
+            <div class="col justify-content-center" id="rebalance-stock-distribution-container" data-url="{% url 'stockDistribution' %}?type=sipRebalance&rebalance-id={{ rebalance_id }}"></div>
+
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col justify-content-center" id="sector-distribution-container" data-url="{% url 'sectorDistribution' %}?type=sip"></div>
+            <div class="col justify-content-center" id="rebalance-sector-distribution-container" data-url="{% url 'sectorDistribution' %}?type=sipRebalance&rebalance-id={{ rebalance_id }}"></div>
+        </div>
+    </div>
+    <script>
+        $.ajax({
+            url: $("#sector-distribution-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("sector-distribution-container", data);
+            }
+        });
+        $.ajax({
+            url: $("#stock-distribution-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("stock-distribution-container", data);
+            }
+        });
+        $.ajax({
+            url: $("#rebalance-sector-distribution-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("rebalance-sector-distribution-container", data);
+            }
+        });
+        $.ajax({
+            url: $("#rebalance-stock-distribution-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                Highcharts.chart("rebalance-stock-distribution-container", data);
+            }
+        });
+    </script>
+{% endblock %}

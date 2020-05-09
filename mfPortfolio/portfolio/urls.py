@@ -21,4 +21,5 @@ urlpatterns = [
     path('stock-distribution-chart/', analytics_views.get_stock_distribution_data, name='stockDistribution'),
     path('popular-stocks-chart/', analytics_views.get_popular_stocks, name='popularStocks'),
     path('portfolio-rebalance/', rebalance_views.re_balance, name='portfolioRebalance'),
+    path('portfolio-rebalance-activity/<int:pk>/', rebalance_views.re_balance_activity, name='portfolioRebalanceActivity'),
 ]

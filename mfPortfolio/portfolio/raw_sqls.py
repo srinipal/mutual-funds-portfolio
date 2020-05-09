@@ -66,3 +66,29 @@ order by 2 desc
 limit 20
 '''
 
+SIP_REBALANCE_ACTIVITIES='''
+select re_balance_id, min(created_at), sum(amount) from portfolio_siprebalance
+where created_by_id = %s
+group by re_balance_id order by 2 desc
+'''
+
+SIP_REBALANCE_STOCK_SHARES='''
+select mfsi.stock_name as "Stock Name", sum(mfsi.holdings_percent * msip.amount * mfasset.percentage) as "Share"
+from portfolio_siprebalance msip
+       inner join mutualFund_mutualfundequityallocation mfsi on msip.mutual_fund_global_id = mfsi.mutual_fund_id
+       inner join mutualFund_mutualfundassetallocation mfasset
+         on (mfasset.mutual_fund_id = msip.mutual_fund_global_id and mfasset.asset_class = 'Equity')
+WHERE msip.re_balance_id = %s
+group by mfsi.stock_name
+order by 2 desc
+'''
+
+SIP_REBALANCE_SECTOR_SHARES='''
+select mfsi.sector as "Sector", sum(mfsi.holdings_percent * msip.amount * mfasset.percentage) as "Share"
+from portfolio_siprebalance msip
+    inner join mutualFund_mutualfundequityallocation mfsi on msip.mutual_fund_global_id = mfsi.mutual_fund_id
+    inner join mutualFund_mutualfundassetallocation mfasset on (mfasset.mutual_fund_id = msip.mutual_fund_global_id and mfasset.asset_class = 'Equity')
+WHERE msip.re_balance_id = %s
+group by mfsi.sector
+order by 2 desc
+'''

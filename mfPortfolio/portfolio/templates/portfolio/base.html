@@ -23,6 +23,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'sipIndex' %}">SIPs</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'portfolioRebalance' %}">Re-balance</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Analysis
@@ -30,7 +33,6 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{% url 'portfolioAnalysis' %}">Portfolio</a>
             <a class="dropdown-item" href="{% url 'sipAnalysis' %}">SIPs</a>
-            <a class="dropdown-item" href="{% url 'portfolioRebalance' %}">Re-balance</a>
         </div>
       </li>
       <li class="nav-item dropdown">

@@ -4,6 +4,24 @@
 {% block content %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-xs-4 col-sm-4">
+                <h5>Re-balance Activities</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-xs-2 col-sm-2"><h6>Date</h6></div>
+            <div class="col-md-2 col-xs-2 col-sm-2"><h6>Amount</h6></div>
+        </div>
+        {% for re_balance_activity in re_balance_activities %}
+            <div class="row">
+                <div class="col-md-2 col-xs-2 col-sm-2">{{ re_balance_activity.created_at }}</div>
+                <div class="col-md-2 col-xs-2 col-sm-2"><a href="{% url 'portfolioRebalanceActivity' re_balance_activity.re_balance_id %}">{{ re_balance_activity.amount }}</a></div>
+            </div>
+        {% endfor %}
+    </div>
+    <hr/>
+    <div class="container-fluid">
         <form method="post">
             {% csrf_token %}
             {{ sip_formset.management_form }}
@@ -50,11 +68,13 @@
                     {{ error|escape }}
                 {% endfor %}
             {% endif %}
+        <br/><br/>
             <div class="form-group">
                 <button type="submit" class="btn-primary btn">Plan</button>
             </div>
         </form>
     </div>
+
     <script>
         $('.sip-formset').formset({
             addText: 'Add SIP',
