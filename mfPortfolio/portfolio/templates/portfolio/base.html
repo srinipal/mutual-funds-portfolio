@@ -32,7 +32,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{% url 'portfolioAnalysis' %}">Portfolio</a>
-            <a class="dropdown-item" href="{% url 'sipAnalysis' %}">SIPs</a>
+            <a class="dropdown-item" href="{% url 'sipAnalysis' %}">SIP</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -40,8 +40,8 @@
           Links
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'sipCreate' %}">Add SIP</a>
-          <a class="dropdown-item" href="{% url 'portfolioMFCreate' %}">Add Investment</a>
+          <a class="dropdown-item" href="{% url 'sipCreate' %}">New SIP</a>
+          <a class="dropdown-item" href="{% url 'portfolioMFCreate' %}">New Investment</a>
           <a class="dropdown-item" href="{% url 'portfolioRebalanceCreate' %}">SIP Re-balance</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'mfIndex' %}">Mutual Funds</a>

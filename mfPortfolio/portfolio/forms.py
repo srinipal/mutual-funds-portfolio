@@ -52,8 +52,6 @@ class MutualFundSIPForm(forms.ModelForm):
         self.fields['mutual_fund'] = forms.ModelChoiceField(
             queryset=MutualFund.objects.filter(active=True, created_by=user),
             label='Add to Investment')
-        self.fields['existing_investment'] = forms.BooleanField(initial=True, widget=forms.CheckboxInput(
-            attrs={'id': 'existing-investment-check'}), required=False)
 
     @staticmethod
     def drop_sip_event(sip_id):

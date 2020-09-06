@@ -29,13 +29,15 @@
                     </div>
                     <div class="row form-group" id="existing-investment-group">
                         <div class="col-md-3 col-xs-3 col-sm-3">{{ form.existing_investment }}&nbsp;{{ form.mutual_fund.label_tag }}</div>
-                        <div class="col-md-5 col-xs-5 col-sm-5">{{ form.mutual_fund }}
+                        <div class="col-md-4 col-xs-4 col-sm-4">{{ form.mutual_fund }}
                             {% for error in form.mutual_fund.errors %}
                                 <p style="color: red">{{ error }}</p>
                             {% endfor %}
                         </div>
-                    </div>
-                    <div class="row form-group" id="new-investment-group" data-url="{% url 'portfolioMFCreate' %}">
+                        <div class="col-md-1 col-xs-1 col-sm-1" data-toggle="tooltip" data-placement="top"
+                             title="Create a new Investment"><i
+                                id="new-investment-icon" class="fa fa-plus-square fa-2x" aria-hidden="true"
+                                data-url="{% url 'portfolioMFCreate' %}"></i></div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-3 col-xs-3 col-sm-3">{{ form.start_date.label_tag }}</div>
@@ -69,22 +71,14 @@
     </div>
     <script>
         $(document).ready(function () {
-            //set initial state.
-            $('#existing-investment-check').val(this.checked);
-            $('#new-investment-group').hide();
 
-            $('#existing-investment-check').change(function () {
-                if (!this.checked) {
-                    let returnVal = confirm("Create a new investment?");
-                    if (returnVal) {
-                        var mf_create_url = $("#new-investment-group").attr("data-url");
-                        $(location).attr('href', mf_create_url);
-                    } else {
-                        $('#existing-investment-check').prop("checked", true);
-                    }
-                } else {
-                    $('#existing-investment-check').val(this.checked);
+            $('#new-investment-icon').click(function () {
+                let returnVal = confirm("Create a new investment?");
+                if (returnVal) {
+                    var mf_create_url = $("#new-investment-icon").attr("data-url");
+                    $(location).attr('href', mf_create_url);
                 }
+
             });
         });
     </script>
