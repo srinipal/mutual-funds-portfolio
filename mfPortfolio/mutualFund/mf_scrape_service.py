@@ -9,7 +9,8 @@ import datetime
 @transaction.atomic
 def scrape(mutual_fund):
     now = datetime.date.today()
-    if now <= mutual_fund.last_scrape_date:
+
+    if mutual_fund.last_scrape_date != None and now <= mutual_fund.last_scrape_date:
         return None
 
     overview_url = mutual_fund.overview_url
