@@ -7,5 +7,6 @@ urlpatterns = [
         path('mutual-funds-edit/<int:pk>/', views.mf_edit, name='mfEdit'),
         path('mutual-funds-view/<int:pk>/', views.MutualFundDetailView.as_view(), name='mfDetail'),
         path('mutual-funds/', views.IndexView.as_view(), name='mfIndex'),
-        path('mutual-funds-scrape/<int:pk>/', views.mf_scrape, name='mfScrape')
+        path('mutual-funds-scrape/<int:pk>/', views.mf_scrape, name='mfScrape'),
+        path('mutual-funds-scrape-all/', views.mf_scrape_all, name='mfScrapeAll')
     ]

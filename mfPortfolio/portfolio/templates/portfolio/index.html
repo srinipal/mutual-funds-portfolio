@@ -11,6 +11,7 @@
         <div class="row">
 
             <div class="col-md-4 col-xs-4 col-sm-4"><h6>Mutual Fund</h6></div>
+            <div class="col-md-1 col-xs-1 col-sm-1"><h6>Rating</h6></div>
             <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"><h6>Amount</h6></div>
             <div class="col-md-2 col-xs-2 col-sm-2"><h6>Last Transaction</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
@@ -21,6 +22,7 @@
                 <div class="col-md-4 col-xs-4 col-sm-4"><a
                         href="{% url 'portfolioMFDetail' mutual_fund.pk %}">{{ mutual_fund.mutual_fund_global }}</a> <span
                         class="badge"></span></div>
+                <div class="col-md-1 col-xs-1 col-sm-1">{{ mutual_fund.mutual_fund_global.rating }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2"
                      style="text-align:right">{{ mutual_fund.amount|intcomma }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ mutual_fund.last_transaction_date }}</div>

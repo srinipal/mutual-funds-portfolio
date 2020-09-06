@@ -43,9 +43,9 @@ def get_stock_data(stock_tr_elem):
             quantity, prev_month_change_qty, m_cap, group_name]
 
 
-def download_mf_data(mf_id, url):
+def download_mf_data(file_prefix, mf_id, url):
     r = urllib.request.urlopen(url)
-    file_name = settings.SCRAPE_DIR + os.path.sep + mf_id + '.html'
+    file_name = settings.SCRAPE_DIR + os.path.sep + file_prefix + '_' + mf_id + '.html'
     print('Downloading the file to ' + file_name)
     with(open(file_name, 'wb')) as fd:
         fd.write(r.read())
@@ -55,7 +55,7 @@ def download_mf_data(mf_id, url):
 
 
 def get_stocks_data(mf_id, url):
-    file_name = download_mf_data(mf_id, url)
+    file_name = download_mf_data('STOCK_DATA', mf_id, url)
     html_root = etree.parse(file_name, etree.HTMLParser())
 
     table = html_root.find("//table[@id='equityCompleteHoldingTable']")
@@ -94,3 +94,15 @@ def get_stocks_data(mf_id, url):
             stock_data_list.append(stock_data)
 
     return {"headers": table_headers, "stock_data_list": stock_data_list, "portfolio_percentages": portfolio_percentages}
+
+
+def get_mf_info(mf_id, url):
+    file_name = download_mf_data('MUTUAL_FUND', mf_id, url)
+    html_root = etree.parse(file_name, etree.HTMLParser())
+
+    rating = html_root.findall("//span[@class='icstar icfullstar']")
+
+    mf_data = {}
+    if rating != None:
+        mf_data = {'rating': len(rating)}
+    return mf_data

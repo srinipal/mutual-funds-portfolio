@@ -60,7 +60,12 @@ def mf_scrape(request, pk, template_name='mutualFund/scrape_response.html'):
 
 
 @login_required
-def mf_scrape_all(request, template_name='mutualFund/scrape_response.html'):
+def mf_scrape_all_user(request, template_name='mutualFund/scrape_response.html'):
     mf_scrape_service.scrape_all_user(request.user)
     return render(request, template_name)
 
+
+@login_required
+def mf_scrape_all(request, template_name='mutualFund/scrape_response.html'):
+    mf_scrape_service.scrape_all()
+    return render(request, template_name)
