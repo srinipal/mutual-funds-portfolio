@@ -28,8 +28,8 @@
                         </div>
                     </div>
                     <div class="row form-group" id="existing-investment-group">
-                        <div class="col-md-3 col-xs-3 col-sm-3">{{ form.existing_investment }}&nbsp;{{ form.mutual_fund.label_tag }}</div>
-                        <div class="col-md-4 col-xs-4 col-sm-4">{{ form.mutual_fund }}
+                        <div class="col-md-3 col-xs-3 col-sm-3">{{ form.mutual_fund.label_tag }}</div>
+                        <div class="col-md-5 col-xs-5 col-sm-5">{{ form.mutual_fund }}
                             {% for error in form.mutual_fund.errors %}
                                 <p style="color: red">{{ error }}</p>
                             {% endfor %}

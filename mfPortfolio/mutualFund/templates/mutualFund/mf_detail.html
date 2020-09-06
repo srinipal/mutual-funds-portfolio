@@ -6,6 +6,24 @@
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
             <div class="col-md-8 col-xs-8 col-sm-8"><h3>{{ mutualfund.mf_name }}</h3></div>
         </div>
+        <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-2 col-xs-2 col-sm-2">Overview url</div>
+            <div class="col-md-8 col-xs-8 col-sm-8"><a href="{{ mutualfund.overview_url }}">{{ mutualfund.overview_url }}</a></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-2 col-xs-2 col-sm-2">Holdings url</div>
+            <div class="col-md-8 col-xs-8 col-sm-8">{{ mutualfund.holdings_url }}</div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-1 col-xs-1 col-sm-1">
+                <a href="{% url 'mfEdit' mutualfund.pk %}">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
     </div>
 {% endblock %}

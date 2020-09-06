@@ -174,7 +174,7 @@ def sip_create(request):
 @login_required
 def sip_edit(request, pk, template_name='portfolio/edit.html'):
     mutual_fund_sip = get_object_or_404(MutualFundSIP, pk=pk)
-    form = MutualFundSIPForm(request.POST or None, instance=mutual_fund_sip, initial={
+    form = MutualFundSIPForm(request.POST or None, user=request.user, instance=mutual_fund_sip, initial={
         'fields_to_disable': ['amount', 'mutual_fund', 'start_date', 'frequency']})
     if form.is_valid():
         form.save()

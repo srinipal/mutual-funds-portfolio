@@ -12,6 +12,16 @@
                     <a href="{% url 'mfDetail' mutual_fund.pk %}">{{ mutual_fund.mf_name }}</a>
                     <span class="badge"></span>
                 </div>
+                <div class="col-md-1 col-xs-1 col-sm-1">
+
+                    <a href="{% url 'mfDetail' mutual_fund.pk %}">
+                        <i class="fa fa-paper-plane" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Details"></i>
+                    </a>
+
+                    <a href="{% url 'mfEdit' mutual_fund.pk %}">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Edit"></i>
+                    </a>
+                </div>
             </div>
         {% endfor %}
         <br/><br/>

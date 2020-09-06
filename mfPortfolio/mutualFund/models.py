@@ -7,6 +7,7 @@ class MutualFund(models.Model):
     id = models.AutoField(primary_key=True)
     mf_name = models.CharField(max_length=256, verbose_name='Mutual Fund Name')
     holdings_url = models.CharField(max_length=512)
+    overview_url = models.CharField(max_length=512, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     last_scrape_date = models.DateField(null=True)

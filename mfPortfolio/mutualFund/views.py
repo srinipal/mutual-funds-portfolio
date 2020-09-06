@@ -26,6 +26,16 @@ def mf_create(request):
     return render(request, 'portfolio/create.html', {'form': form})
 
 
+@login_required
+def mf_edit(request, pk, template_name='portfolio/edit.html'):
+    mutual_fund = get_object_or_404(MutualFund, pk=pk)
+    form = MutualFundForm(request.POST or None, instance=mutual_fund)
+    if form.is_valid():
+        form.save()
+        return redirect('mfDetail', pk)
+    return render(request, template_name, {'form': form})
+
+
 class MutualFundDetailView(LoginRequiredMixin, DetailView):
     login_url = '/login'
     model = MutualFund
