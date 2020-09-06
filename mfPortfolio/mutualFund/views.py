@@ -52,9 +52,8 @@ class IndexView(LoginRequiredMixin, ListView):
 
 
 @login_required
-def mf_scrape(request, template_name='mutualFund/scrape_response.html'):
-    mf_id = request.GET['mf_id']
-    mutual_fund = get_object_or_404(MutualFund, pk=mf_id)
+def mf_scrape(request, pk, template_name='mutualFund/scrape_response.html'):
+    mutual_fund = get_object_or_404(MutualFund, pk=pk)
     scraping_th = threading.Thread(target=mf_scrape_service.scrape, args=[mutual_fund,])
     scraping_th.start()
     return render(request, template_name)

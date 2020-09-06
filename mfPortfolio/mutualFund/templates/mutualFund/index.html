@@ -5,6 +5,7 @@
 
         <div class="row">
             <div class="col-md-4 col-xs-4 col-sm-4"><h6>Mutual Fund</h6></div>
+            <div class="col-md-2 col-xs-2 col-sm-2">Last Scrape Date</div>
         </div>
         {% for mutual_fund in mf_list %}
             <div class="row">
@@ -12,6 +13,7 @@
                     <a href="{% url 'mfDetail' mutual_fund.pk %}">{{ mutual_fund.mf_name }}</a>
                     <span class="badge"></span>
                 </div>
+                <div class="col-md-2 col-xs-2 col-sm-2">{{ mutual_fund.last_scrape_date }}</div>
                 <div class="col-md-1 col-xs-1 col-sm-1">
 
                     <a href="{% url 'mfDetail' mutual_fund.pk %}">
@@ -20,6 +22,10 @@
 
                     <a href="{% url 'mfEdit' mutual_fund.pk %}">
                         <i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Edit"></i>
+                    </a>
+
+                    <a href="{% url 'mfScrape' mutual_fund.pk %}">
+                        <i class="fa fa-cloud" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Crawl"></i>
                     </a>
                 </div>
             </div>
