@@ -1,0 +1,91 @@
+{% extends 'portfolio/base.html' %}
+{% block title %} Portfolio {% endblock %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1 col-xs-1 col-sm-1"></div>
+            <div class="col-md-10 col-xs-10 col-sm-10"><h4>New SIP</h4></div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-10 col-xs-10 col-sm-10">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <ul class='form-errors' , style="background-color: pink">
+                            {% for error in form.non_field_errors %}
+                                <li style="color: red">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <div class="row form-group">
+                        <div class="col-md-3 col-xs-3 col-sm-3">{{ form.amount.label_tag }}</div>
+                        <div class="col-md-5 col-xs-5 col-sm-5">{{ form.amount }}
+                            {% for error in form.amount.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row form-group" id="existing-investment-group">
+                        <div class="col-md-3 col-xs-3 col-sm-3">{{ form.existing_investment }}&nbsp;{{ form.mutual_fund.label_tag }}</div>
+                        <div class="col-md-5 col-xs-5 col-sm-5">{{ form.mutual_fund }}
+                            {% for error in form.mutual_fund.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row form-group" id="new-investment-group" data-url="{% url 'portfolioMFCreate' %}">
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-3 col-xs-3 col-sm-3">{{ form.start_date.label_tag }}</div>
+                        <div class="col-md-5 col-xs-5 col-sm-5">{{ form.start_date }}
+                            {% for error in form.start_date.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-3 col-xs-3 col-sm-3">{{ form.frequency.label_tag }}</div>
+                        <div class="col-md-5 col-xs-5 col-sm-5">{{ form.frequency }}
+                            {% for error in form.frequency.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-3 col-xs-3 col-sm-3">{{ form.active.label_tag }}</div>
+                        <div class="col-md-5 col-xs-5 col-sm-5">{{ form.active }}
+                            {% for error in form.active.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">submit</button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            //set initial state.
+            $('#existing-investment-check').val(this.checked);
+            $('#new-investment-group').hide();
+
+            $('#existing-investment-check').change(function () {
+                if (!this.checked) {
+                    let returnVal = confirm("Create a new investment?");
+                    if (returnVal) {
+                        var mf_create_url = $("#new-investment-group").attr("data-url");
+                        $(location).attr('href', mf_create_url);
+                    } else {
+                        $('#existing-investment-check').prop("checked", true);
+                    }
+                } else {
+                    $('#existing-investment-check').val(this.checked);
+                }
+            });
+        });
+    </script>
+{% endblock %}

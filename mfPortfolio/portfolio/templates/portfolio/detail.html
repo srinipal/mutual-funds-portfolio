@@ -67,7 +67,7 @@
             <div class="col-md-2 col-xs-2 col-sm-2"><h6>Last Transaction</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
         </div>
-        {% for sip in mutualfund.sips.all %}
+        {% for sip in mutualfund.active_sips %}
             <div class="row">
                 <div class="col-md-4 col-xs-4 col-sm-4"><a
                         href="{% url 'portfolioMFDetail' sip.mutual_fund.pk %}">{{ sip.mutual_fund.mutual_fund_global.mf_name }}</a> <span

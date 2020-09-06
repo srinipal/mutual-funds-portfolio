@@ -18,11 +18,14 @@ class MutualFund(models.Model):
     def __str__(self):
         return self.mutual_fund_global.mf_name
 
+    def active_sips(self):
+        return self.sips.filter(active=True)
+
 
 class MutualFundSIP(models.Model):
     id = models.AutoField(primary_key=True)
     amount = models.DecimalField(decimal_places=2, max_digits=22, default=0)
-    mutual_fund = models.ForeignKey(MutualFund, verbose_name='Investment', related_name='sips', on_delete=models.CASCADE)
+    mutual_fund = models.ForeignKey(MutualFund, verbose_name='Add to Investment', related_name='sips', on_delete=models.CASCADE)
     start_date = models.DateField(auto_now=False, null=False)
     frequency = models.CharField(
         max_length=36,

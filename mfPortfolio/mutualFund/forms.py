@@ -7,4 +7,3 @@ class MutualFundForm(forms.ModelForm):
     class Meta:
         model = MutualFund
         exclude = ['last_scrape_date']
-

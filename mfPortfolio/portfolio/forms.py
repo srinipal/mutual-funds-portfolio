@@ -4,7 +4,7 @@ from django.db import connection
 
 from .models import MutualFund, MutualFundSIP, SIPRebalance
 from .utils import process_utils
-
+from mutualFund.models import MutualFund as MutualFundGlobal
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -41,6 +41,7 @@ class MutualFundSIPForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super(MutualFundSIPForm, self).__init__(*args, **kwargs)
         if 'initial' in kwargs:
             initial_dict = kwargs.get('initial')
@@ -48,6 +49,11 @@ class MutualFundSIPForm(forms.ModelForm):
                 fields_to_disable = initial_dict['fields_to_disable']
                 for field_to_disable in fields_to_disable:
                     self.fields[field_to_disable].disabled = True
+        self.fields['mutual_fund'] = forms.ModelChoiceField(
+            queryset=MutualFund.objects.filter(active=True, created_by=user),
+            label='Add to Investment')
+        self.fields['existing_investment'] = forms.BooleanField(initial=True, widget=forms.CheckboxInput(
+            attrs={'id': 'existing-investment-check'}), required=False)
 
     @staticmethod
     def drop_sip_event(sip_id):

@@ -161,14 +161,14 @@ def mf_delete(request, pk, template_name='portfolio/delete.html'):
 @login_required
 def sip_create(request):
     if request.method == 'POST':
-        form = MutualFundSIPForm(request.POST)
+        form = MutualFundSIPForm(request.POST, user=request.user)
         if form.is_valid():
             form.save(user=request.user)
             return redirect('sipDetail', form.instance.pk)
         else:
-            render(request, 'portfolio/create.html', {'form': form})
-    form = MutualFundSIPForm()
-    return render(request, 'portfolio/create.html', {'form': form})
+            return render(request, 'portfolio/sip_create.html', {'form': form})
+    form = MutualFundSIPForm(user=request.user)
+    return render(request, 'portfolio/sip_create.html', {'form': form})
 
 
 @login_required
