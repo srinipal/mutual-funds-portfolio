@@ -16,7 +16,7 @@ def scrape(mutual_fund):
     overview_url = mutual_fund.overview_url
     if overview_url != None:
         mf_data = money_control_scrape.get_mf_info(str(mutual_fund.pk), overview_url)
-        if (mf_data['rating'] != None):
+        if (mf_data['rating'] != None and mf_data['rating'] > 0):
             mutual_fund.rating = mf_data['rating']
 
     holdings_url = mutual_fund.holdings_url

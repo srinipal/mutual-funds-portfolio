@@ -24,7 +24,7 @@
         <a class="nav-link" href="{% url 'sipIndex' %}">SIPs</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'portfolioRebalance' %}">Re-balance</a>
+        <a class="nav-link" href="{% url 'portfolioRebalance' %}">Rebalance</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,7 +42,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'sipCreate' %}">New SIP</a>
           <a class="dropdown-item" href="{% url 'portfolioMFCreate' %}">New Investment</a>
-          <a class="dropdown-item" href="{% url 'portfolioRebalanceCreate' %}">SIP Re-balance</a>
+          <a class="dropdown-item" href="{% url 'portfolioRebalanceCreate' %}">SIP Rebalance</a>
           {% if user.is_superuser %}
             <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'mfIndex' %}">Mutual Funds</a>

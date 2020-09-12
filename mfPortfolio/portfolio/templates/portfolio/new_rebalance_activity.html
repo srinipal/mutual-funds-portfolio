@@ -1,11 +1,11 @@
 {% extends 'portfolio/base.html' %}
-{% block title %} Portfolio Re-balance {% endblock %}
+{% block title %} Portfolio Rebalance {% endblock %}
 {% load humanize %}
 {% block content %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
     <div class="container-fluid">
         <form method="post">
-            <h5>Portfolio Re-balance</h5>
+            <h5>Portfolio Rebalance</h5>
             {% csrf_token %}
             {{ sip_formset.management_form }}
             {% for sip_form in sip_formset %}
