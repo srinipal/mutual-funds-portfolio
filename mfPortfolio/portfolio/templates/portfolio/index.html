@@ -22,7 +22,11 @@
                 <div class="col-md-4 col-xs-4 col-sm-4"><a
                         href="{% url 'portfolioMFDetail' mutual_fund.pk %}">{{ mutual_fund.mutual_fund_global }}</a> <span
                         class="badge"></span></div>
-                <div class="col-md-1 col-xs-1 col-sm-1">{{ mutual_fund.mutual_fund_global.rating }}</div>
+                {% if mutual_fund.mutual_fund_global.rating != None and mutual_fund.mutual_fund_global.rating > 0 %}
+                    <div class="col-md-1 col-xs-1 col-sm-1">{{ mutual_fund.mutual_fund_global.rating }}</div>
+                {% else %}
+                    <div class="col-md-1 col-xs-1 col-sm-1"> - </div>
+                {% endif %}
                 <div class="col-md-2 col-xs-2 col-sm-2"
                      style="text-align:right">{{ mutual_fund.amount|intcomma }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ mutual_fund.last_transaction_date }}</div>

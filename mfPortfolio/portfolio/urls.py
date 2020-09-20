@@ -22,5 +22,5 @@ urlpatterns = [
     path('popular-stocks-chart/', analytics_views.get_popular_stocks, name='popularStocks'),
     path('portfolio-rebalance/', rebalance_views.re_balance, name='portfolioRebalance'),
     path('portfolio-rebalance-create/', rebalance_views.re_balance_activity_create, name='portfolioRebalanceCreate'),
-    path('portfolio-rebalance-activity/<int:pk>/', rebalance_views.re_balance_activity, name='portfolioRebalanceActivity'),
+    path('portfolio-rebalance-activity/<int:pk>/', rebalance_views.SIPRebalanceView.as_view(), name='portfolioRebalanceActivity'),
 ]

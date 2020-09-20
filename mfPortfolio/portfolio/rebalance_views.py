@@ -1,9 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction, IntegrityError
+from django.db.models import Sum
 from django.forms.formsets import BaseFormSet
 from django.forms.formsets import formset_factory
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
 
 from .forms import SIPRebalanceForm
 from .models import MutualFundSIP, SIPRebalance, PortfolioRebalance
@@ -62,7 +65,6 @@ def re_balance_activity_create(request, template_name='portfolio/new_rebalance_a
     return render(request, template_name, context)
 
 
-@login_required
-def re_balance_activity(request, pk, template_name='portfolio/rebalance_activity.html'):
-    context = { 'rebalance_id': pk}
-    return render(request, template_name, context)
+class SIPRebalanceView(LoginRequiredMixin, DetailView):
+    template_name = 'portfolio/rebalance_activity.html'
+    model = PortfolioRebalance
