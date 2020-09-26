@@ -21,6 +21,10 @@
                 <div class="col-md-1 col-xs-1 col-sm-1" style="text-align:right">{{ sip.amount|intcomma }}</div>
             </div>
         {% endfor %}
+{% comment %}        <div class="row">
+            <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"></div>
+            <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"><b>Total: </b>{{ total_sum|intcomma }}</div>
+        </div>{% endcomment %}
         <hr/>
     </div>
     <div class="container-fluid">

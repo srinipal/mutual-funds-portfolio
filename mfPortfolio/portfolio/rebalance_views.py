@@ -68,3 +68,7 @@ def re_balance_activity_create(request, template_name='portfolio/new_rebalance_a
 class SIPRebalanceView(LoginRequiredMixin, DetailView):
     template_name = 'portfolio/rebalance_activity.html'
     model = PortfolioRebalance
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

@@ -12,7 +12,8 @@
 
             <div class="col-md-4 col-xs-4 col-sm-4"><h6>Mutual Fund Investment</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1"><h6>Rating</h6></div>
-            <div class="col-md-2 col-xs-2 col-sm-2" style="text-align:right"><h6>Amount</h6></div>
+            <div class="col-md-1 col-xs-1 col-sm-1"><h6>Category</h6></div>
+            <div class="col-md-1 col-xs-1 col-sm-1" style="text-align:right"><h6>Amount</h6></div>
             <div class="col-md-2 col-xs-2 col-sm-2"><h6>Start Date</h6></div>
             <div class="col-md-2 col-xs-2 col-sm-2"><h6>Last Transaction</h6></div>
             <div class="col-md-1 col-xs-1 col-sm-1"></div>
@@ -28,7 +29,8 @@
                 {% else %}
                     <div class="col-md-1 col-xs-1 col-sm-1"> - </div>
                 {% endif %}
-                <div class="col-md-2 col-xs-2 col-sm-2"
+                <div class="col-md-1 col-xs-1 col-sm-1">{{ sip.mutual_fund.mutual_fund_global.get_category_display }}</div>
+                <div class="col-md-1 col-xs-1 col-sm-1"
                      style="text-align:right">{{ sip.amount|intcomma }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.start_date }}</div>
                 <div class="col-md-2 col-xs-2 col-sm-2">{{ sip.last_transaction_date }}</div>

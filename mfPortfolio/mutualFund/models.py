@@ -1,5 +1,6 @@
 from django.db import models
 from .utils.common_enums import AssetClass
+from .utils.common_enums import MutualFundType
 # Create your models here.
 
 
@@ -7,8 +8,12 @@ class MutualFund(models.Model):
     id = models.AutoField(primary_key=True)
     mf_name = models.CharField(max_length=256, verbose_name='Mutual Fund Name')
     rating = models.IntegerField(null=True)
-    holdings_url = models.CharField(max_length=512)
+    category = models.CharField(
+        max_length=36,
+        choices=MutualFundType.choices()
+    )
     overview_url = models.CharField(max_length=512, null=True)
+    holdings_url = models.CharField(max_length=512)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     last_scrape_date = models.DateField(null=True)
