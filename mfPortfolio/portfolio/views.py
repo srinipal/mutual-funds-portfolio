@@ -91,7 +91,7 @@ class MFIndexView(LoginRequiredMixin, ListView):
     context_object_name = 'mf_list'
 
     def get_queryset(self):
-        return MutualFund.objects.all().filter(created_by=self.request.user).order_by('-last_transaction_date')
+        return MutualFund.objects.all().filter(created_by=self.request.user).order_by('-amount')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -105,7 +105,7 @@ class SIPIndexView(LoginRequiredMixin, ListView):
     context_object_name = 'sip_list'
 
     def get_queryset(self):
-        return MutualFundSIP.objects.all().filter(active=True, created_by=self.request.user).order_by('-last_transaction_date')
+        return MutualFundSIP.objects.all().filter(active=True, created_by=self.request.user).order_by('mutual_fund__mutual_fund_global__mf_name', '-last_transaction_date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
